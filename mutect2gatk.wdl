@@ -39,6 +39,7 @@ task runMuTect2GATK4 {
   input {
     File tumor_bam
     File normal_bam
+    String outputTumorNamePrefix = outputTumorNamePrefix
     String gatk = "$GATK_ROOT/gatk"
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     String outputPrefix = "OUTPUT"
