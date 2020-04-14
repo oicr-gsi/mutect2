@@ -39,13 +39,13 @@ workflow mutect2GATK4 {
 
   Array[File] intervals = splitIntervals.intervals
 
-  scatter(i in intervals) {
+  scatter(interval in intervals) {
     if (!defined(normalBam)) {
       call tumorOnlyMode {
         input:
           tumorBam = tumorBam,
-          outputTumorNamePrefix = outputTumorNamePrefix,
-          interval = i
+          interval = interval,
+          outputTumorNamePrefix = outputTumorNamePrefix
       }
     }
 
@@ -54,10 +54,11 @@ workflow mutect2GATK4 {
         input:
           tumorBam = tumorBam,
           normalBam = normalBam,
-          interval = i,
+          interval = interval,
           outputNormalNamePrefix = outputNormalNamePrefix
       }
     }
+
     File outputVcf = select_first([tumorOnlyMode.vcfFile, tumorMatchedNormal.vcfFile])
   }
 
@@ -81,6 +82,22 @@ task splitIntervals {
     Int numChunk
     Int memory = 32
     Int timeout = 72
+  }
+
+  parameter_meta {
+    modules: "Environment module names and version to load (space separated) before command execution"
+    gatk: "GATK to use"
+    refFasta: "Path to the reference fasta"
+    bedFile: "Interval file to split for scattering"
+    numChunk: "Number of files to split the interval file into"
+    memory: "Memory allocated for job"
+    timeout: "Hours before task timeout"
+  }
+
+  meta {
+    output_meta: {
+      intervals: "Interval files that were split to be used for scattering."
+    }
   }
 
   command <<<
@@ -122,6 +139,7 @@ task tumorOnlyMode {
   parameter_meta {
       gatk: "GATK to use."
       tumorBam: "Input tumor file (bam or sam)."
+      interval: "An interval or list of intervals to include in analysis."
       refFasta: "Path to the reference fasta."
       mutectTag: "Metric tag is used as a file extension for output."
       outputTumorNamePrefix: "Output prefix, either input file basename or custom string."
@@ -132,7 +150,7 @@ task tumorOnlyMode {
 
     meta {
       output_meta : {
-        vcfFile: "VCF file output of BMPP (bam file)."
+        vcfFile: "VCF file output of BMPP (bam file) for tumor only mode."
       }
     }
 
@@ -173,9 +191,10 @@ task tumorMatchedNormal {
   }
 
   parameter_meta {
-    gatk: "gatk to use"
+    gatk: "GATK to use"
     tumorBam: "Input tumor file (bam or sam)"
     normalBam: "Input normal file (bam or sam)"
+    interval: "An interval or list of intervals to include in analysis."
     refFasta: "Path to the reference fasta"
     mutectTag: "Metric tag is used as a file extension for output"
     outputNormalNamePrefix: "Output prefix, either input file basename or custom string"
@@ -186,7 +205,7 @@ task tumorMatchedNormal {
 
   meta {
     output_meta : {
-      vcfFile: "VCF file output of BMPP (bam file)."
+      vcfFile: "VCF file output of BMPP (bam file) for tumour with a matched normal."
     }
   }
 
@@ -224,12 +243,25 @@ task vcfMerge {
     Int timeout = 72
   }
 
-  String outputMergedVcf = "~{outputTumorNamePrefix}.merged.vcf"
+  parameter_meta {
+    modules: "Environment module names and version to load (space separated) before command execution"
+    gatk: "GATK to use"
+    vcfs: "Vcf's from scatter to merge together"
+    outputTumorNamePrefix: "Output prefix, either input file basename or custom string"
+    memory: "Memory allocated for job"
+    timeout: "Hours before task timeout"
+  }
+
+  meta {
+    output_meta: {
+      outputMergedVcf: "Merged vcf"
+    }
+  }
 
   command <<<
     ~{gatk} GatherVcfs \
     -I ~{sep="-I " vcfs}
-    -O ~{outputMergedVcf}
+    -O ~{outputTumorNamePrefix}.merged.vcf
   >>>
 
   runtime {
@@ -239,7 +271,7 @@ task vcfMerge {
   }
 
   output {
-    File outputMergedVcf = "~{outputMergedVcf}"
+    File outputMergedVcf = "~{outputTumorNamePrefix}.merged.vcf"
   }
 }
 
