@@ -1,0 +1,15 @@
+{
+  "defaults": {
+    "description": "Workflow for somatic short variant analysis with GATK4.",
+    "metrics_calculate": "calculate.sh",
+    "metrics_compare": "compare.sh",
+    "output_metrics_dir": "/.mounts/labs/gsi/testdata/mutect2GATK4/output_metrics/1.0",
+    "parameters": {
+      "wdl_options": {
+        "write_to_cache": false,
+        "read_from_cache": false
+      }
+    }
+  },
+  "tests": []
+}
