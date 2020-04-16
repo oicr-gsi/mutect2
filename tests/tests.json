@@ -11,5 +11,38 @@
       }
     }
   },
-  "tests": []
+  "tests": [
+    {
+      "id": "ESBCC_0005_Tumor_Matched_Normal_EX",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.bedFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/S31285117_Covered.bed",
+          "mutect2GATK4.numChunk": 10
+        }
+      }
+    },
+    {
+      "id": "TGL20_0151_Tumor_Only_EX",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/TGL20_0151_Bn_P_EX_5385_TS.sorted.filter.deduped.realign.recal.bam",
+          "mutect2GATK4.bedFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/S07604715_Regions_sorted.bed",
+          "mutect2GATK4.numChunk": 10
+        }
+      }
+    },
+    {
+      "id": "SCOUT_0013_Tumor_Matched_Normal_WG",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/SCOUT_0013_Bn_P_WG_UHN_2080.merged.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/SCOUT_0013_Pb_R_WG_B2080.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.bedFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/hg19_random.genome.sizes.bed",
+          "mutect2GATK4.numChunk": 22
+        }
+      }
+    }
+  ]
 }
