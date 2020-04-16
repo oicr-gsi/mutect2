@@ -90,7 +90,8 @@ Output | Type | Description
 `filteredVcfFile`|File|None
 `filteredVcfIndex`|File|None
 
-##Rationale explained 
+## Rationale explained 
+
 gatk SplitIntervals was used for splitting the interval file for scattering because it balances the genomic space interrogated by each of the chunks, versus just using an equal number of intervals in each.
 
 ## Niassa + Cromwell
