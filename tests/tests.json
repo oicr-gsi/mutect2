@@ -30,7 +30,7 @@
       "parameters": {
         "wdl_inputs": {
           "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/TGL20_0151_Bn_P_EX_5385_TS.sorted.filter.deduped.realign.recal.bam",
-          "mutect2GATK4.tumorBai": "",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/TGL20_0151_Bn_P_EX_5385_TS.sorted.filter.deduped.realign.recal.bam.bai",
           "mutect2GATK4.intervals": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/S07604715_Regions_sorted.bed",
           "mutect2GATK4.scatterCount": 24
         }
@@ -41,9 +41,9 @@
       "parameters": {
         "wdl_inputs": {
           "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/SCOUT_0013_Bn_P_WG_UHN_2080.merged.sorted.filter.deduped.realigned.recal.bam",
-          "mutect2GATK4.tumorBai": "",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/SCOUT_0013_Bn_P_WG_UHN_2080.merged.sorted.filter.deduped.realigned.recal.bam.bai",
           "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/SCOUT_0013_Pb_R_WG_B2080.sorted.filter.deduped.realigned.recal.bam",
-          "mutect2GATK4.normalBai": "",
+          "mutect2GATK4.normalBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/SCOUT_0013_Pb_R_WG_B2080.sorted.filter.deduped.realigned.recal.bam.bai",
           "mutect2GATK4.intervals": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/hg19_random.genome.sizes.bed",
           "mutect2GATK4.scatterCount": 24
         }
