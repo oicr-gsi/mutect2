@@ -220,12 +220,12 @@ task mergeVCFs {
     }
   }
 
-  String outputName = basename(vcfs[0], ".vcf")
+  String outputName = basename(vcfs[0])
 
   command <<<
     gatk --java-options "-Xmx~{memory}g" MergeVcfs \
     -I ~{sep=" -I " vcfs} \
-    -O ~{outputName}.vcf
+    -O ~{outputName}
   >>>
 
   runtime {
@@ -261,7 +261,7 @@ task mergeStats {
     timeout: "~{timeout}"
   }
 
-  output {
+  output
     File mergedStats = "~{outputStats}"
   }
 }
@@ -288,11 +288,12 @@ task filter {
     cp ~{refFai} .
     cp ~{refDict} .
 
-    gatk --java-options "-Xmx~{memory}g" FilterMutectCalls -V \
+    gatk --java-options "-Xmx~{memory}g" FilterMutectCalls \
+    -V ~{unfilteredVcf} \
     -R ~{refFasta} \
-    -O ~{filteredVcfName} \
     ~{"-stats " + mutectStats} \
     --filtering-stats ~{filteredVcfName}.stats \
+    -O ~{filteredVcfName} \
     ~{filterExtraArgs}
 
     bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
