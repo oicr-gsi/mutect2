@@ -78,9 +78,9 @@ workflow mutect2GATK4 {
 
   output {
     File unfilteredVcfFile = filter.unfilteredVcfGz
-    File unfilteredVcfIndex = mergeVCFs.mergedVcfIdx
+    File unfilteredVcfIndex = filter.unfilteredVcfTbi
     File filteredVcfFile = filter.filteredVcfGz
-    File filteredVcfIndex = filter.filteredVcfIdx
+    File filteredVcfIndex = filter.filteredVcfTbi
     File mergedUnfilteredStats = mergeStats.mergedStats
     File filteringStats = filter.filteringStats
   }
@@ -110,7 +110,7 @@ task runMutect2 {
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     String refFai = "$HG19_ROOT/hg19_random.fa.fai"
     String refDict = "$HG19_ROOT/hg19_random.dict"
-    String mutectTag = "mutect2_gatk"
+    String mutectTag = "mutect2"
     File? intervalFile
     Array[String]? intervals
     Boolean intervalsProvided
@@ -125,7 +125,7 @@ task runMutect2 {
     Int timeout = 24
   }
 
-  String outputVcf = outputBasename + "." + mutectTag + ".vcf"
+  String outputVcf = if (defined(normalBam)) then outputBasename + "." + mutectTag + ".vcf" else outputBasename + "." + mutectTag + ".tumor_only.vcf"
   String outputVcfIdx = outputVcf + ".idx"
   String outputStats = outputVcf + ".stats"
 
@@ -257,7 +257,7 @@ task filter {
     File unfilteredVcfIdx
     File mutectStats
     String? filterExtraArgs
-    Int memory = 4
+    Int memory = 6
     Int timeout = 12
   }
 
@@ -268,7 +268,7 @@ task filter {
     cp ~{refFai} .
     cp ~{refDict} .
 
-    gatk --java-options "-Xmx~{memory-3}g" FilterMutectCalls \
+    gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
     -V ~{unfilteredVcf} \
     -R ~{refFasta} \
     -O ~{filteredVcfName} \
@@ -278,6 +278,9 @@ task filter {
 
     bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
     bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
+
+    gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
+    gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
   >>>
 
   runtime {
@@ -288,8 +291,9 @@ task filter {
 
   output {
     File unfilteredVcfGz = "~{unfilteredVcfName}.gz"
+    File unfilteredVcfTbi = "~{unfilteredVcfName}.gz.tbi"
     File filteredVcfGz = "~{filteredVcfName}.gz"
-    File filteredVcfIdx = "~{filteredVcfName}.idx"
+    File filteredVcfTbi = "~{filteredVcfName}.gz.tbi"
     File filteringStats = "~{filteredVcfName}.stats"
   }
 }
