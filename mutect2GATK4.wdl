@@ -181,7 +181,7 @@ task mergeVCFs {
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     Array[File] vcfs
     Array[File] vcfIndices
-    Int memory = 4
+    Int memory = 12
     Int timeout = 12
   }
 
@@ -223,7 +223,7 @@ task mergeStats {
   input {
     String modules = "gatk/4.1.6.0"
     Array[File]+ stats
-    Int memory = 2
+    Int memory = 12
     Int timeout = 5
   }
 
@@ -257,7 +257,7 @@ task filter {
     File unfilteredVcfIdx
     File mutectStats
     String? filterExtraArgs
-    Int memory = 4
+    Int memory = 12
     Int timeout = 12
   }
 
