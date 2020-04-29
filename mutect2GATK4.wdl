@@ -121,7 +121,7 @@ task runMutect2 {
     String? mutect2ExtraArgs
     String outputBasename
     Int threads = 4
-    Int memory = 16
+    Int memory = 24
     Int timeout = 24
   }
 
@@ -130,14 +130,14 @@ task runMutect2 {
   String outputStats = outputVcf + ".stats"
 
   command <<<
-    tumor_name=$(samtools view -H "~{tumorBam}" | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
+    tumor_name=$(samtools view -H ~{tumorBam} | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
     tumor_command_line="-I ~{tumorBam} -tumor ${tumor_name}"
 
     cp ~{refFai} .
     cp ~{refDict} .
 
     if [ -f "~{normalBam}" ]; then
-      normal_name=$(samtools view -H "~{normalBam}" | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
+      normal_name=$(samtools view -H ~{normalBam} | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
       normal_command_line="-I ~{normalBam} -normal ${normal_name}"
     fi
 
@@ -153,7 +153,7 @@ task runMutect2 {
       fi
     fi
 
-    gatk --java-options "-Xmx~{memory}g" Mutect2 \
+    gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
     -R ~{refFasta} \
     $tumor_command_line \
     $normal_command_line \
