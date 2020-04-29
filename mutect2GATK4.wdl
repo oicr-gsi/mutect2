@@ -142,13 +142,13 @@ task runMutect2 {
     fi
 
     if [ -f "~{intervalFile}" ]; then
-      if [ ~{intervalsProvided} ]; then
+      if ~{intervalsProvided} ; then
         intervals_command_line="-L ~{sep=" -L " intervals} -L ~{intervalFile} -isr INTERSECTION"
       else
         intervals_command_line="-L ~{intervalFile}"
       fi
     else
-      if [ ~{intervalsProvided} ]; then
+      if ~{intervalsProvided} ; then
         intervals_command_line="-L ~{sep=" -L " intervals} "
       fi
     fi
