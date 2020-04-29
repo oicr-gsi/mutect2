@@ -280,6 +280,12 @@ task filter {
     bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
   >>>
 
+  runtime {
+    memory:  "~{memory} GB"
+    modules: "~{modules}"
+    timeout: "~{timeout}"
+  }
+
   output {
     File unfilteredVcfGz = "~{unfilteredVcfName}.gz"
     File filteredVcfGz = "~{filteredVcfName}.gz"

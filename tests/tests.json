@@ -45,6 +45,75 @@
           "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/TGL20_0151_Bn_P_EX_5385_TS.sorted.filter.deduped.realign.recal.bam.bai"
         }
       }
+    },
+    {
+      "id": "Tumor_only_no_interval_file",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai"
+        }
+      }
+    },
+    {
+      "id": "Tumor_only",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
+          "mutect2GATK4.intervalFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022.val.bed",
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai"
+        }
+      }
+    },
+    {
+      "id": "Tumor_only_no_parallel_intervalFile",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.intervalFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022.val.bed",
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai"
+        }
+
+      }
+    },
+    {
+      "id": "Tumor_normal_no_interval_file",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
+          "mutect2GATK4.normalBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022R.val.bam.bai",
+          "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022R.val.bam",
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai"
+        }
+      }
+    },
+    {
+      "id": "Tumor_normal",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
+          "mutect2GATK4.intervalFile": "/.mounts/labs/PDE/data/GATK/PCSI0022.val.bed",
+          "mutect2GATK4.normalBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022R.val.bam.bai",
+          "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022R.val.bam",
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai"
+        }
+      }
+    },
+    {
+      "id": "Tumor_normal_no_parallel_intervalFile",
+      "parameters": {
+        "wdl_inputs": {
+          "mutect2GATK4.intervalFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022.val.bed",
+          "mutect2GATK4.normalBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022R.val.bam.bai",
+          "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022R.val.bam",
+          "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+          "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai"
+        }
+      }
     }
   ]
 }

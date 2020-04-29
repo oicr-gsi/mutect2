@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>mutect2GATK4</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <workflow-description>Workflow for somatic short variant analysis with GATK4</workflow-description>
