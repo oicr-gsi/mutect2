@@ -36,11 +36,13 @@ workflow mutect2GATK4 {
   }
 
   String outputBasename = basename(tumorBam, '.bam')
+  Boolean intervalsProvided = if (defined(intervalsToParallelizeBy)) then true else false
 
   scatter(subintervals in splitStringToArray.out) {
     call runMutect2 {
       input:
         intervals = subintervals,
+        intervalsProvided = intervalsProvided,
         intervalFile = intervalFile,
         tumorBam = tumorBam,
         tumorBai = tumorBai,
@@ -111,6 +113,7 @@ task runMutect2 {
     String mutectTag = "mutect2_gatk"
     File? intervalFile
     Array[String]? intervals
+    Boolean intervalsProvided
     File tumorBam
     File tumorBai
     File? normalBam
@@ -125,7 +128,6 @@ task runMutect2 {
   String outputVcf = outputBasename + "." + mutectTag + ".vcf"
   String outputVcfIdx = outputVcf + ".idx"
   String outputStats = outputVcf + ".stats"
-  Boolean intervalsProvided = if ("" in intervals) then false else true
 
   command <<<
     tumor_name=$(samtools view -H "~{tumorBam}" | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
