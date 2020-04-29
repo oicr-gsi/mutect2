@@ -139,13 +139,13 @@ task runMutect2 {
     fi
 
     if [ -f "~{intervalFile}" ]; then
-      if [ ! -z "~{intervals}" ]; then
+      if [[ ! -z "~{intervals}" && ~{intervals[0]} != "" ]]; then
         intervals_command_line="-L ~{sep=" -L " intervals} -L ~{intervalFile} -isr INTERSECTION"
       else
         intervals_command_line="-L ~{intervalFile}"
       fi
     else
-      if [ ! -z "~{intervals}" ]; then
+      if [[ ! -z "~{intervals}" && ~{intervals[0]} != "" ]]; then
         intervals_command_line="-L ~{sep=" -L " intervals}"
       fi
     fi
@@ -179,7 +179,7 @@ task mergeVCFs {
     Array[File] vcfs
     Array[File] vcfIndices
     Int memory = 4
-    Int timeout = 72
+    Int timeout = 12
   }
 
   parameter_meta {
