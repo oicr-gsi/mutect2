@@ -181,7 +181,7 @@ task mergeVCFs {
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     Array[File] vcfs
     Array[File] vcfIndices
-    Int memory = 12
+    Int memory = 4
     Int timeout = 12
   }
 
@@ -202,7 +202,7 @@ task mergeVCFs {
   String outputName = basename(vcfs[0])
 
   command <<<
-    gatk --java-options "-Xmx~{memory}g" MergeVcfs \
+    gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
     -I ~{sep=" -I " vcfs} \
     -O ~{outputName}
   >>>
@@ -223,14 +223,14 @@ task mergeStats {
   input {
     String modules = "gatk/4.1.6.0"
     Array[File]+ stats
-    Int memory = 12
+    Int memory = 4
     Int timeout = 5
   }
 
   String outputStats = basename(stats[0])
 
   command <<<
-    gatk --java-options "-Xmx~{memory}g" MergeMutectStats \
+    gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
     -stats ~{sep=" -stats " stats} \
     -O ~{outputStats}
   >>>
@@ -257,7 +257,7 @@ task filter {
     File unfilteredVcfIdx
     File mutectStats
     String? filterExtraArgs
-    Int memory = 12
+    Int memory = 4
     Int timeout = 12
   }
 
@@ -268,7 +268,7 @@ task filter {
     cp ~{refFai} .
     cp ~{refDict} .
 
-    gatk --java-options "-Xmx~{memory}g" FilterMutectCalls \
+    gatk --java-options "-Xmx~{memory-3}g" FilterMutectCalls \
     -V ~{unfilteredVcf} \
     -R ~{refFasta} \
     -O ~{filteredVcfName} \
