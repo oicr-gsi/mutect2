@@ -125,7 +125,6 @@ task runMutect2 {
   String outputVcf = outputBasename + "." + mutectTag + ".vcf"
   String outputVcfIdx = outputVcf + ".idx"
   String outputStats = outputVcf + ".stats"
-  String intervalTest = select_first(intervals)
 
   command <<<
     tumor_name=$(samtools view -H "~{tumorBam}" | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
@@ -140,13 +139,13 @@ task runMutect2 {
     fi
 
     if [ -f "~{intervalFile}" ]; then
-      if [[ ! -z "~{intervalTest}" && ! -z "~{intervals}" ]]; then
+      if [ ! -z "~{intervals}" ]; then
         intervals_command_line="-L ~{sep=" -L " intervals} -L ~{intervalFile} -isr INTERSECTION"
       else
         intervals_command_line="-L ~{intervalFile}"
       fi
     else
-      if [[ ! -z "~{intervalTest}" && ! -z "~{intervals}" ]]; then
+      if [ ! -z "~{intervals}" ]; then
         intervals_command_line="-L ~{sep=" -L " intervals}"
       fi
     fi
