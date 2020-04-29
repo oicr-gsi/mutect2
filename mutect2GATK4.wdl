@@ -106,7 +106,7 @@ task splitStringToArray {
 
 task runMutect2 {
   input {
-    String modules = "gatk/4.1.6.0 hg19/p13 samtools/1.9"
+    String modules = "gatk/4.1.6.0 hg19/p13"
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     String refFai = "$HG19_ROOT/hg19_random.fa.fai"
     String refDict = "$HG19_ROOT/hg19_random.dict"
@@ -130,15 +130,15 @@ task runMutect2 {
   String outputStats = outputVcf + ".stats"
 
   command <<<
-    tumor_name=$(samtools view -H ~{tumorBam} | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
-    tumor_command_line="-I ~{tumorBam} -tumor ${tumor_name}"
+    gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{tumorBam} -O tumor_name.txt -encode
+    tumor_command_line="-I ~{tumorBam} -tumor `cat tumor_name.txt`"
 
     cp ~{refFai} .
     cp ~{refDict} .
 
     if [ -f "~{normalBam}" ]; then
-      normal_name=$(samtools view -H ~{normalBam} | grep '^@RG'| sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq)
-      normal_command_line="-I ~{normalBam} -normal ${normal_name}"
+      gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{normalBam} -O normal_name.txt -encode
+      normal_command_line="-I ~{normalBam} -normal `cat normal_name.txt`"
     fi
 
     if [ -f "~{intervalFile}" ]; then
