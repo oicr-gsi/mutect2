@@ -153,6 +153,7 @@ task runMutect2 {
 
     if [ -f "~{normalBam}" ]; then
       gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{normalBam} -O normal_name.txt -encode
+      normalName=$(cat normal_name.txt)
     fi
 
     if [ -f "~{intervalFile}" ]; then
@@ -170,7 +171,7 @@ task runMutect2 {
     gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
     -R ~{refFasta} \
     $tumor_command_line \
-    ~{true="-I ~{normalBam} -normal `cat normal_name.txt`" false="" normalProvided} \
+    ~{true="-I ~{normalBam} -normal ${normalName}" false="" normalProvided} \
     ~{"--germline-resource " + gnomad} \
     ~{"-pon " + pon} \
     $intervals_command_line \
