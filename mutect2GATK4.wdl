@@ -140,7 +140,7 @@ task runMutect2 {
   String outputVcf = if (defined(normalBam)) then outputBasename + "." + mutectTag + ".vcf" else outputBasename + "." + mutectTag + ".tumor_only.vcf"
   String outputVcfIdx = outputVcf + ".idx"
   String outputStats = outputVcf + ".stats"
-  Boolean normalProvided = if (defined(normalBam)) then true else false
+  String normalArgument = if (defined(normalBam)) then "-I ~{normalBam} -normal ${normalName}" else ""
 
   command <<<
     set -euo pipefail
@@ -171,7 +171,7 @@ task runMutect2 {
     gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
     -R ~{refFasta} \
     $tumor_command_line \
-    ~{true="-I ~{normalBam} -normal ${normalName}" false="" normalProvided} \
+    ~{normalArgument} \
     ~{"--germline-resource " + gnomad} \
     ~{"-pon " + pon} \
     $intervals_command_line \
