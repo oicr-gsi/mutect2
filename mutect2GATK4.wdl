@@ -8,6 +8,10 @@ workflow mutect2GATK4 {
     File? normalBai
     File? intervalFile
     String? intervalsToParallelizeBy
+    File? pon
+    File? ponIdx
+    File? gnomad
+    File? gnomadIdx
   }
 
   parameter_meta {
@@ -48,6 +52,10 @@ workflow mutect2GATK4 {
         tumorBai = tumorBai,
         normalBam = normalBam,
         normalBai = normalBai,
+        pon = pon,
+        ponIdx = ponIdx,
+        gnomad = gnomad,
+        gnomadIdx = gnomadIdx,
         outputBasename = outputBasename
     }
   }
@@ -118,10 +126,14 @@ task runMutect2 {
     File tumorBai
     File? normalBam
     File? normalBai
+    File? pon
+    File? ponIdx
+    File? gnomad
+    File? gnomadIdx
     String? mutect2ExtraArgs
     String outputBasename
     Int threads = 4
-    Int memory = 24
+    Int memory = 32
     Int timeout = 24
   }
 
@@ -130,6 +142,8 @@ task runMutect2 {
   String outputStats = outputVcf + ".stats"
 
   command <<<
+    set -euo pipefail
+
     gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{tumorBam} -O tumor_name.txt -encode
     tumor_command_line="-I ~{tumorBam} -tumor `cat tumor_name.txt`"
 
@@ -139,6 +153,8 @@ task runMutect2 {
     if [ -f "~{normalBam}" ]; then
       gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{normalBam} -O normal_name.txt -encode
       normal_command_line="-I ~{normalBam} -normal `cat normal_name.txt`"
+    else
+      normal_command_line=""
     fi
 
     if [ -f "~{intervalFile}" ]; then
@@ -157,8 +173,11 @@ task runMutect2 {
     -R ~{refFasta} \
     $tumor_command_line \
     $normal_command_line \
+    ~{"--germline-resource " + gnomad} \
+    ~{"-pon " + pon} \
     $intervals_command_line \
-    -O "~{outputVcf}"
+    -O "~{outputVcf}" \
+    ~{mutect2ExtraArgs}
   >>>
 
   runtime {
@@ -202,6 +221,8 @@ task mergeVCFs {
   String outputName = basename(vcfs[0])
 
   command <<<
+    set -euo pipefail
+
     gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
     -I ~{sep=" -I " vcfs} \
     -O ~{outputName}
@@ -230,6 +251,8 @@ task mergeStats {
   String outputStats = basename(stats[0])
 
   command <<<
+    set -euo pipefail
+
     gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
     -stats ~{sep=" -stats " stats} \
     -O ~{outputStats}
@@ -257,7 +280,7 @@ task filter {
     File unfilteredVcfIdx
     File mutectStats
     String? filterExtraArgs
-    Int memory = 6
+    Int memory = 16
     Int timeout = 12
   }
 
@@ -265,6 +288,8 @@ task filter {
   String filteredVcfName = basename(unfilteredVcf, ".vcf") + ".filtered.vcf"
 
   command <<<
+    set -euo pipefail
+
     cp ~{refFai} .
     cp ~{refDict} .
 
