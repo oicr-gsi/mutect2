@@ -1,4 +1,4 @@
-# mutect2GATK4
+# mutect2
 
 Somatic short variant analysis.
 

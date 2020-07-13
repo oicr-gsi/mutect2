@@ -6,16 +6,16 @@
     <parent>
         <groupId>ca.on.oicr.gsi</groupId>
         <artifactId>pipedev-niassa-cromwell-parent</artifactId>
-        <version>2.5.10</version>
+        <version>2.5.17</version>
         <relativePath/>
     </parent>
 
-    <artifactId>mutect2GATK4</artifactId>
-    <version>1.0.2</version>
+    <artifactId>mutect2</artifactId>
+    <version>1.0.3</version>
 
     <properties>
         <workflow-description>Workflow for somatic short variant analysis with GATK4</workflow-description>
-        <wdl-workflow>mutect2GATK4.wdl</wdl-workflow>
+        <wdl-workflow>mutect2.wdl</wdl-workflow>
         <test-basedir>tests/</test-basedir>
     </properties>
 
