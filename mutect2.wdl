@@ -1,6 +1,6 @@
 version 1.0
 
-workflow mutect2GATK4 {
+workflow mutect2 {
   input {
     File tumorBam
     File tumorBai
