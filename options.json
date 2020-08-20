@@ -1,0 +1,6 @@
+{
+  "default_runtime_attributes": {
+    "docker": "g3chen/mutect2@sha256:c9c87b456d10098326edd996669885a798c6f956c0ce47caee72f8fdc07c3eac",
+    "docker_volume": "/home/ubuntu/Downloads/sample_data:/data"
+  }
+}
