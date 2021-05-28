@@ -1,0 +1,6 @@
+{
+    "names": [
+        "mutect2"
+    ],
+    "wdl": "mutect2.wdl"
+}
