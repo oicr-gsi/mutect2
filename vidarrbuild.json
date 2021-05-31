@@ -1,6 +1,8 @@
 {
     "names": [
-        "mutect2"
+	    "mutect2",
+	    "mutect2_matched",
+	    "mutect2_tumor_only"
     ],
     "wdl": "mutect2.wdl"
 }
