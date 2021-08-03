@@ -10,18 +10,7 @@
             "mutect2.filter.timeout": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": {
-                "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/S31285117_Covered.bed",
-                    "externalIds": [
-                        {
-                            "id": "TEST",
-                            "provider": "TEST"
-                        }
-                    ]
-                },
-                "type": "EXTERNAL"
-            },
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/S31285117_Covered.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -167,18 +156,7 @@
             "mutect2.filter.timeout": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": {
-                "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/S07604715_Regions_sorted.bed",
-                    "externalIds": [
-                        {
-                            "id": "TEST",
-                            "provider": "TEST"
-                        }
-                    ]
-                },
-                "type": "EXTERNAL"
-            },
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/S07604715_Regions_sorted.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -426,18 +404,7 @@
             "mutect2.filter.timeout": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": {
-                "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
-                    "externalIds": [
-                        {
-                            "id": "TEST",
-                            "provider": "TEST"
-                        }
-                    ]
-                },
-                "type": "EXTERNAL"
-            },
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -561,18 +528,7 @@
             "mutect2.filter.timeout": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": {
-                "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
-                    "externalIds": [
-                        {
-                            "id": "TEST",
-                            "provider": "TEST"
-                        }
-                    ]
-                },
-                "type": "EXTERNAL"
-            },
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -842,18 +798,7 @@
             "mutect2.filter.timeout": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": {
-                "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
-                    "externalIds": [
-                        {
-                            "id": "TEST",
-                            "provider": "TEST"
-                        }
-                    ]
-                },
-                "type": "EXTERNAL"
-            },
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
