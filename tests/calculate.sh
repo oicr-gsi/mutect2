@@ -1,3 +1,3 @@
 #!/bin/bash
 cd $1
-find *vcf* -xtype f -size +0 | sed 's/.*\.//' | sort | uniq -c
+for v in *.vcf.gz;do zcat $v | grep -v ^# | md5sum; done | sort -V

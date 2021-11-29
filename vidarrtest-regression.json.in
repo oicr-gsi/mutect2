@@ -84,7 +84,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "ESBCC_0005_Tumor_Matched_Normal_EX",
         "metadata": {
             "mutect2.filteredVcfFile": {
@@ -208,7 +211,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "TGL20_0151_Tumor_Only_EX",
         "metadata": {
             "mutect2.filteredVcfFile": {
@@ -332,7 +338,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "Tumor_only_no_interval_file",
         "metadata": {
             "mutect2.filteredVcfFile": {
@@ -456,7 +465,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "Tumor_only",
         "metadata": {
             "mutect2.filteredVcfFile": {
@@ -580,7 +592,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "Tumor_only_no_parallel_intervalFile",
         "metadata": {
             "mutect2.filteredVcfFile": {
@@ -726,7 +741,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "Tumor_normal",
         "metadata": {
             "mutect2.filteredVcfFile": {
@@ -872,7 +890,10 @@
             }
         },
         "description": "Workflow for somatic short variant analysis with GATK4.",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "Tumor_normal_no_parallel_intervalFile",
         "metadata": {
             "mutect2.filteredVcfFile": {
