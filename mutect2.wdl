@@ -70,7 +70,7 @@ Map[String, GenomeResources] resources = {
       intervalsToParallelizeBy = intervalsToParallelizeBy
   }
 
-  String outputBasename = basename(tumorBam, '.bam')
+  String outputBasename = outputFilePrefix
   Boolean intervalsProvided = if (defined(intervalsToParallelizeBy)) then true else false
 
   scatter(subintervals in splitStringToArray.out) {
