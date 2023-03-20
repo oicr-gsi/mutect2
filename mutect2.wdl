@@ -120,8 +120,6 @@ Map[String, GenomeResources] resources = {
 
 
   output {
-    File unfilteredVcfFile = filter.unfilteredVcfGz
-    File unfilteredVcfIndex = filter.unfilteredVcfTbi
     File filteredVcfFile = filter.filteredVcfGz
     File filteredVcfIndex = filter.filteredVcfTbi
     File mergedUnfilteredStats = mergeStats.mergedStats
