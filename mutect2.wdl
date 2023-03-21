@@ -20,6 +20,7 @@ workflow mutect2 {
     File? gnomad
     File? gnomadIdx
     String reference
+    String gatk
     String outputFilePrefix
   }
 
@@ -49,13 +50,13 @@ Map[String, GenomeResources] resources = {
     		"refFai" : "$HG19_ROOT/hg19_random.fa.fai",
     		"refFasta" : "$HG19_ROOT/hg19_random.fa",
     		"modules" : "hg19/p13 samtools/1.9"
-  }
+  },
   "hg38": {
         "refDict" : "$HG38_ROOT/hg38_random.dict",
     		"refFai" : "$HG38_ROOT/hg38_random.fa.fai",
     		"refFasta" : "$HG38_ROOT/hg38_random.fa",
     		"modules" : "hg38/p12 samtools/1.9"
-  }
+  },
   "mm10": {
         "refDict" : "$MM10_ROOT/mm10.dict",
         "refFai" : "$MM10_ROOT/mm10.fa.fai",
@@ -88,7 +89,11 @@ Map[String, GenomeResources] resources = {
         gnomad = gnomad,
         gnomadIdx = gnomadIdx,
         outputBasename = outputBasename,
-        modules = resources [ reference ].modules
+        modules = resources [ reference ].modules + ' ' + gatk,
+        refFai = resources[reference].refFai,
+        refFasta = resources[reference].refFasta,
+        refDict = resources[reference].refDict
+
     }
   }
 
@@ -100,13 +105,14 @@ Map[String, GenomeResources] resources = {
     input:
       vcfs = unfilteredVcfs,
       vcfIndices = unfilteredVcfIndices,
-      modules = resources [ reference ].modules
+      modules = resources [ reference ].modules + ' ' + gatk,
+      refFasta = resources[reference].refFasta
   }
 
   call mergeStats {
     input:
       stats = unfilteredStats,
-      modules = resources [ reference ].modules
+      modules = resources [ reference ].modules + ' ' + gatk,
   }
 
   call filter {
@@ -115,7 +121,10 @@ Map[String, GenomeResources] resources = {
       unfilteredVcf = mergeVCFs.mergedVcf,
       unfilteredVcfIdx = mergeVCFs.mergedVcfIdx,
       mutectStats = mergeStats.mergedStats,
-      modules = resources [ reference ].modules
+      modules = resources [ reference ].modules + ' ' + gatk,
+      refFasta = resources[reference].refFasta,
+      refDict = resources[reference].refDict,
+      refFai = resources[reference].refFai
   }
 
 
