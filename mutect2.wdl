@@ -21,12 +21,23 @@ workflow mutect2 {
     File? gnomadIdx
     String reference
     String gatk
-    String outputFilePrefix
+    String outputFileNamePrefix
   }
 
   parameter_meta {
     tumorBam: "Input tumor file (bam or sam)."
+    tumorBai: "Index for tumorBam"
     normalBam: "Input normal file (bam or sam)."
+    normalBai: "Index for noramlBam"
+    intervalFile: "One or more genomic intervals over which to operate"
+    intervalsToParallelizeBy: "Comma separated list of intervals to split by (e.g. chr1,chr2,chr3+chr4)"
+    pon: "panel of normal"
+    ponIdx: "index of pon"
+    gnomad: "Genome Aggregation Database"
+    gnomadIdx: "Index of gnomad"
+    gatk: "gatk version to be used"
+    reference: "the reference genome for input sample"
+    outputFileNamePrefix: "prefix of output file"
   }
 
   meta {
@@ -35,13 +46,15 @@ workflow mutect2 {
     description: "Somatic short variant analysis."
     dependencies: [
     {
-      name: "gatk/4.1.1.0",
-      url: "https://software.broadinstitute.org/gatk/download/index"
-    },
-    {
       name: "samtools/1.9",
       url: "https://github.com/samtools/samtools/archive/0.1.19.tar.gz"
     }]
+    output_meta: {
+      filteredVcfFile: "the filtered vcf file",
+      filteredVcfIndex: "Index of filtered vcf file",
+      mergedUnfilteredStats: "Stats for merged unfiltered files",
+      filteringStats: "Stats for filtering process"
+    }
   }
 
 Map[String, GenomeResources] resources = {
@@ -71,7 +84,7 @@ Map[String, GenomeResources] resources = {
       intervalsToParallelizeBy = intervalsToParallelizeBy
   }
 
-  String outputBasename = outputFilePrefix
+  String outputBasename = outputFileNamePrefix
   Boolean intervalsProvided = if (defined(intervalsToParallelizeBy)) then true else false
 
   scatter(subintervals in splitStringToArray.out) {
@@ -143,6 +156,11 @@ task splitStringToArray {
     Int memory = 1
     Int timeout = 1
   }
+  parameter_meta {
+    lineSeparator: "Interval group separator - these are the intervals to split by."
+    memory: "Memory allocated to job (in GB)"
+    timeout: "Maximum amount of time (in hours) the task can run for."
+  }
 
   command <<<
     echo "~{intervalsToParallelizeBy}" | tr '~{lineSeparator}' '\n'
@@ -176,6 +194,14 @@ task runMutect2 {
     Int threads = 4
     Int memory = 32
     Int timeout = 24
+  }
+
+  parameter_meta {
+    mutectTag: "version tag for mutect"
+    mutect2ExtraArgs: "placehoulder for extra arguments"
+    threads: "Requested CPU threads"
+    memory: "Memory allocated to job (in GB)."
+    timeout: "Maximum amount of time (in hours) the task can run for."
   }
 
   String outputVcf = if (defined(normalBam)) then outputBasename + "." + mutectTag + ".vcf" else outputBasename + "." + mutectTag + ".tumor_only.vcf"
@@ -289,6 +315,11 @@ task mergeStats {
     Int timeout = 5
   }
 
+  parameter_meta {
+    memory: "Memory allocated for job"
+    timeout: "Hours before task timeout"
+  }
+
   String outputStats = basename(stats[0])
 
   command <<<
@@ -323,6 +354,12 @@ task filter {
     String? filterExtraArgs
     Int memory = 16
     Int timeout = 12
+  }
+
+  parameter_meta {
+    memory: "Memory allocated for job"
+    timeout: "Hours before task timeout"
+    filterExtraArgs: "placehoulder for extra arguments"
   }
 
   String unfilteredVcfName = basename(unfilteredVcf)
