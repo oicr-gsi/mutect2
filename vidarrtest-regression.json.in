@@ -2,6 +2,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "ESBCC_0005_Tumor_Matched_Normal_EX",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -151,6 +154,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "TGL20_0151_Tumor_Only_EX",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -278,6 +284,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "Tumor_only_no_interval_file",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -405,6 +414,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "Tumor_only",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -532,6 +544,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "Tumor_only_no_parallel_intervalFile",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -659,6 +674,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "Tumor_normal",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -808,6 +826,9 @@
     {
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
+            "mutect2.reference": "hg19",
+            "mutect2.gatk": "gatk/4.1.6.0",
+            "mutect2.outputFileNamePrefix": "Tumor_normal_no_parallel_intervalFile",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,

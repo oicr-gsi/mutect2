@@ -2,9 +2,10 @@
 
 Somatic short variant analysis.
 
+## Overview
+
 ## Dependencies
 
-* [gatk 4.1.1.0](https://software.broadinstitute.org/gatk/download/index)
 * [samtools 1.9](https://github.com/samtools/samtools/archive/0.1.19.tar.gz)
 
 
@@ -21,105 +22,137 @@ java -jar cromwell.jar run mutect2.wdl --inputs inputs.json
 Parameter|Value|Description
 ---|---|---
 `tumorBam`|File|Input tumor file (bam or sam).
+`tumorBai`|File|Index for tumorBam
+`reference`|String|the reference genome for input sample
+`gatk`|String|gatk version to be used
+`outputFileNamePrefix`|String|prefix of output file
 
 
 #### Optional workflow parameters:
 Parameter|Value|Default|Description
 ---|---|---|---
 `normalBam`|File?|None|Input normal file (bam or sam).
-`bedFile`|File?|None|Interval file to split for scattering.
-`numChunk`|Int?|None|Number of files to split the interval file into.
-`outputTumorNamePrefix`|String|basename(tumorBam,'.bam')|Output prefix, either input file basename or custom string.
-`outputNormalNamePrefix`|String?|basename(select_first([normalBam, ""]),'.bam')|Output prefix, either input file basename or custom string.
+`normalBai`|File?|None|Index for noramlBam
+`intervalFile`|String?|None|One or more genomic intervals over which to operate
+`intervalsToParallelizeBy`|String?|None|Comma separated list of intervals to split by (e.g. chr1,chr2,chr3+chr4)
+`pon`|File?|None|panel of normal
+`ponIdx`|File?|None|index of pon
+`gnomad`|File?|None|Genome Aggregation Database
+`gnomadIdx`|File?|None|Index of gnomad
 
 
 #### Optional task parameters:
 Parameter|Value|Default|Description
 ---|---|---|---
-`splitIntervals.modules`|String|"gatk/4.1.2.0 hg19/p13"|Environment module names and version to load (space separated) before command execution
-`splitIntervals.gatk`|String|"$GATK_ROOT/gatk"|GATK to use
-`splitIntervals.refFasta`|String|"$HG19_ROOT/hg19_random.fa"|Path to the reference fasta
-`splitIntervals.memory`|Int|32|Memory allocated for job
-`splitIntervals.timeout`|Int|72|Hours before task timeout
-`tumorOnlyModeBed.modules`|String|"gatk/4.1.2.0 hg19/p13 samtools/1.9"|
-`tumorOnlyModeBed.refFasta`|String|"$HG19_ROOT/hg19_random.fa"|
-`tumorOnlyModeBed.gatk`|String|"$GATK_ROOT/gatk"|
-`tumorOnlyModeBed.mutectTag`|String|"mutect2_gatk"|
-`tumorOnlyModeBed.threads`|Int|8|
-`tumorOnlyModeBed.memory`|Int|32|
-`tumorOnlyModeBed.timeout`|Int|96|
-`tumorMatchedNormalBed.modules`|String|"gatk/4.1.2.0 hg19/p13 samtools/1.9"|
-`tumorMatchedNormalBed.gatk`|String|"$GATK_ROOT/gatk"|
-`tumorMatchedNormalBed.refFasta`|String|"$HG19_ROOT/hg19_random.fa"|
-`tumorMatchedNormalBed.mutectTag`|String|"mutect2_gatk"|
-`tumorMatchedNormalBed.threads`|Int|8|
-`tumorMatchedNormalBed.memory`|Int|32|
-`tumorMatchedNormalBed.timeout`|Int|96|
-`vcfMerge.modules`|String|"gatk/4.1.2.0 hg19/p13"|Environment module names and version to load (space separated) before command execution
-`vcfMerge.gatk`|String|"$GATK_ROOT/gatk"|GATK to use
-`vcfMerge.refFasta`|String|"$HG19_ROOT/hg19_random.fa"|
-`vcfMerge.memory`|Int|32|Memory allocated for job
-`vcfMerge.timeout`|Int|72|Hours before task timeout
-`tumorOnlyMode.modules`|String|"gatk/4.1.2.0 hg19/p13 samtools/1.9"|Environment module names and version to load (space separated) before command execution.
-`tumorOnlyMode.refFasta`|String|"$HG19_ROOT/hg19_random.fa"|Path to the reference fasta.
-`tumorOnlyMode.gatk`|String|"$GATK_ROOT/gatk"|GATK to use.
-`tumorOnlyMode.mutectTag`|String|"mutect2_gatk"|Metric tag is used as a file extension for output.
-`tumorOnlyMode.interval`|File?|None|An interval or list of intervals to include in analysis.
-`tumorOnlyMode.threads`|Int|8|Requested CPU threads
-`tumorOnlyMode.memory`|Int|32|Memory allocated for job.
-`tumorOnlyMode.timeout`|Int|96|Hours before task timeout
-`tumorMatchedNormal.modules`|String|"gatk/4.1.2.0 hg19/p13 samtools/1.9"|Environment module names and version to load (space separated) before command execution
-`tumorMatchedNormal.interval`|File?|None|An interval or list of intervals to include in analysis.
-`tumorMatchedNormal.gatk`|String|"$GATK_ROOT/gatk"|GATK to use
-`tumorMatchedNormal.refFasta`|String|"$HG19_ROOT/hg19_random.fa"|Path to the reference fasta
-`tumorMatchedNormal.mutectTag`|String|"mutect2_gatk"|Metric tag is used as a file extension for output
-`tumorMatchedNormal.threads`|Int|8|Requested CPU threads
-`tumorMatchedNormal.memory`|Int|32|Memory allocated for job
-`tumorMatchedNormal.timeout`|Int|96|Hours before task timeout
-`vcfProcess.modules`|String|"samtools/1.9"|
-`vcfProcess.memory`|Int|32|
-`vcfProcess.timeout`|Int|72|
+`splitStringToArray.lineSeparator`|String|","|Interval group separator - these are the intervals to split by.
+`splitStringToArray.memory`|Int|1|Memory allocated to job (in GB)
+`splitStringToArray.timeout`|Int|1|Maximum amount of time (in hours) the task can run for.
+`runMutect2.mutectTag`|String|"mutect2"|version tag for mutect
+`runMutect2.mutect2ExtraArgs`|String?|None|placehoulder for extra arguments
+`runMutect2.threads`|Int|4|Requested CPU threads
+`runMutect2.memory`|Int|32|Memory allocated to job (in GB).
+`runMutect2.timeout`|Int|24|Maximum amount of time (in hours) the task can run for.
+`mergeVCFs.memory`|Int|4|Memory allocated for job
+`mergeVCFs.timeout`|Int|12|Hours before task timeout
+`mergeStats.memory`|Int|4|Memory allocated for job
+`mergeStats.timeout`|Int|5|Hours before task timeout
+`filter.filterExtraArgs`|String?|None|placehoulder for extra arguments
+`filter.memory`|Int|16|Memory allocated for job
+`filter.timeout`|Int|12|Hours before task timeout
 
 
 ### Outputs
 
 Output | Type | Description
 ---|---|---
-`unfilteredVcfFile`|File|None
-`unfilteredVcfIndex`|File|None
-`filteredVcfFile`|File|None
-`filteredVcfIndex`|File|None
+`filteredVcfFile`|File|the filtered vcf file
+`filteredVcfIndex`|File|Index of filtered vcf file
+`mergedUnfilteredStats`|File|Stats for merged unfiltered files
+`filteringStats`|File|Stats for filtering process
 
-## Rationale explained 
 
-gatk SplitIntervals was used for splitting the interval file for scattering because it balances the genomic space interrogated by each of the chunks, versus just using an equal number of intervals in each.
-
-## Niassa + Cromwell
-
-This WDL workflow is wrapped in a Niassa workflow (https://github.com/oicr-gsi/pipedev/tree/master/pipedev-niassa-cromwell-workflow) so that it can used with the Niassa metadata tracking system (https://github.com/oicr-gsi/niassa).
-
-* Building
-```
-mvn clean install
-```
-
-* Testing
-```
-mvn clean verify \
--Djava_opts="-Xmx1g -XX:+UseG1GC -XX:+UseStringDeduplication" \
--DrunTestThreads=2 \
--DskipITs=false \
--DskipRunITs=false \
--DworkingDirectory=/path/to/tmp/ \
--DschedulingHost=niassa_oozie_host \
--DwebserviceUrl=http://niassa-url:8080 \
--DwebserviceUser=niassa_user \
--DwebservicePassword=niassa_user_password \
--Dcromwell-host=http://cromwell-url:8000
-```
-
-## Support
+## Commands
+ 
+ This section lists command(s) run by mutect2 workflow
+ 
+  
+  ```
+      echo "~{intervalsToParallelizeBy}" | tr '~{lineSeparator}' '\n'
+ ```
+  ```
+      set -euo pipefail
+  
+      gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{tumorBam} -O tumor_name.txt -encode
+      tumor_command_line="-I ~{tumorBam} -tumor `cat tumor_name.txt`"
+  
+      cp ~{refFai} .
+      cp ~{refDict} .
+  
+      if [ -f "~{normalBam}" ]; then
+        gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{normalBam} -O normal_name.txt -encode
+        normal_command_line="-I ~{normalBam} -normal `cat normal_name.txt`"
+      else
+        normal_command_line=""
+      fi
+  
+      if [ -f "~{intervalFile}" ]; then
+        if ~{intervalsProvided} ; then
+          intervals_command_line="-L ~{sep=" -L " intervals} -L ~{intervalFile} -isr INTERSECTION"
+        else
+          intervals_command_line="-L ~{intervalFile}"
+        fi
+      else
+        if ~{intervalsProvided} ; then
+          intervals_command_line="-L ~{sep=" -L " intervals} "
+        fi
+      fi
+  
+      gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
+      -R ~{refFasta} \
+      $tumor_command_line \
+      $normal_command_line \
+      ~{"--germline-resource " + gnomad} \
+      ~{"-pon " + pon} \
+      $intervals_command_line \
+      -O "~{outputVcf}" \
+      ~{mutect2ExtraArgs}
+    ```
+  ```
+      set -euo pipefail
+  
+      gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
+      -I ~{sep=" -I " vcfs} \
+      -O ~{outputName}
+    ```
+  ```
+      set -euo pipefail
+  
+      gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
+      -stats ~{sep=" -stats " stats} \
+      -O ~{outputStats}
+    ```
+  ```
+      set -euo pipefail
+  
+      cp ~{refFai} .
+      cp ~{refDict} .
+  
+      gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
+      -V ~{unfilteredVcf} \
+      -R ~{refFasta} \
+      -O ~{filteredVcfName} \
+      ~{"-stats " + mutectStats} \
+      --filtering-stats ~{filteredVcfName}.stats \
+      ~{filterExtraArgs}
+  
+      bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
+      bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
+  
+      gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
+      gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
+    ```
+ ## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
-_Generated with wdl_doc_gen (https://github.com/oicr-gsi/wdl_doc_gen/)_
+_Generated with generate-markdown-readme (https://github.com/oicr-gsi/gsi-wdl-tools/)_
