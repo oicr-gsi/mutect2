@@ -3,7 +3,8 @@
 	    "mutect2_matched",
 	    "mutect2_matched_by_tumor_group",
 	    "mutect2_tumor_only",
-	    "mutect2_tumor_only_by_tumor_group"
+	    "mutect2_tumor_only_by_tumor_group",
+		"mutect2_normal_only"
     ],
     "wdl": "mutect2.wdl"
 }
