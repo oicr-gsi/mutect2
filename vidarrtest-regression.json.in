@@ -1034,7 +1034,9 @@
                     ]
                 },
                 "type": "EXTERNAL"
-            }
+            },
+            "mutect2.normalBai": null,
+            "mutect2.normalBam": null
         },
         "description": "hg38_with_gnomad",
         "engineArguments": {
