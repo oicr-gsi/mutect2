@@ -37,8 +37,6 @@ Parameter|Value|Default|Description
 `intervalsToParallelizeBy`|String?|None|Comma separated list of intervals to split by (e.g. chr1,chr2,chr3+chr4)
 `pon`|File?|None|panel of normal
 `ponIdx`|File?|None|index of pon
-`gnomad`|File?|None|Genome Aggregation Database
-`gnomadIdx`|File?|None|Index of gnomad
 
 
 #### Optional task parameters:
