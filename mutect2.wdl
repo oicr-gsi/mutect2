@@ -5,6 +5,8 @@ struct GenomeResources {
     String refFai
     String refFasta
     String modules
+    String gnomad
+    String gnomadIdx
 }
 
 workflow mutect2 {
@@ -17,8 +19,6 @@ workflow mutect2 {
     String? intervalsToParallelizeBy
     File? pon
     File? ponIdx
-    File? gnomad
-    File? gnomadIdx
     String reference
     String gatk
     String outputFileNamePrefix
@@ -33,8 +33,6 @@ workflow mutect2 {
     intervalsToParallelizeBy: "Comma separated list of intervals to split by (e.g. chr1,chr2,chr3+chr4)"
     pon: "panel of normal"
     ponIdx: "index of pon"
-    gnomad: "Genome Aggregation Database"
-    gnomadIdx: "Index of gnomad"
     gatk: "gatk version to be used"
     reference: "the reference genome for input sample"
     outputFileNamePrefix: "prefix of output file"
@@ -62,19 +60,25 @@ Map[String, GenomeResources] resources = {
         "refDict" : "$HG19_ROOT/hg19_random.dict",
     		"refFai" : "$HG19_ROOT/hg19_random.fa.fai",
     		"refFasta" : "$HG19_ROOT/hg19_random.fa",
-    		"modules" : "hg19/p13 samtools/1.9"
+    		"modules" : "hg19/p13 samtools/1.9",
+        "gnomad": "",
+        "gnomadIdx": ""
   },
   "hg38": {
         "refDict" : "$HG38_ROOT/hg38_random.dict",
     		"refFai" : "$HG38_ROOT/hg38_random.fa.fai",
     		"refFasta" : "$HG38_ROOT/hg38_random.fa",
-    		"modules" : "hg38/p12 samtools/1.9"
+        "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
+        "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
+    		"modules" : "hg38/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
   },
   "mm10": {
         "refDict" : "$MM10_ROOT/mm10.dict",
         "refFai" : "$MM10_ROOT/mm10.fa.fai",
         "refFasta" : "$MM10_ROOT/mm10.fa",
-        "modules" : "mm10/p6 samtools/1.9"
+        "modules" : "mm10/p6 samtools/1.9",
+        "gnomad": "",
+        "gnomadIdx": ""
   }
 
 }
@@ -99,8 +103,8 @@ Map[String, GenomeResources] resources = {
         normalBai = normalBai,
         pon = pon,
         ponIdx = ponIdx,
-        gnomad = gnomad,
-        gnomadIdx = gnomadIdx,
+        gnomad = resources [ reference ].gnomad,
+        gnomadIdx = resources [ reference ].gnomadIdx,
         outputBasename = outputBasename,
         modules = resources [ reference ].modules + ' ' + gatk,
         refFai = resources[reference].refFai,
@@ -187,8 +191,8 @@ task runMutect2 {
     File? normalBai
     File? pon
     File? ponIdx
-    File? gnomad
-    File? gnomadIdx
+    String gnomad
+    String gnomadIdx
     String? mutect2ExtraArgs
     String outputBasename
     Int threads = 4
@@ -236,11 +240,17 @@ task runMutect2 {
       fi
     fi
 
+    if [[ ! -z "~{gnomad}" ]] ; then
+      germline_resource_line="--germline-resource ~{gnomad}"
+    else 
+      germline_resource_line=""
+    fi
+
     gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
     -R ~{refFasta} \
     $tumor_command_line \
     $normal_command_line \
-    ~{"--germline-resource " + gnomad} \
+    $germline_resource_line \
     ~{"-pon " + pon} \
     $intervals_command_line \
     -O "~{outputVcf}" \
