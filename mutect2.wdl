@@ -91,10 +91,16 @@ Map[String, GenomeResources] resources = {
   String outputBasename = outputFileNamePrefix
   Boolean intervalsProvided = if (defined(intervalsToParallelizeBy)) then true else false
 
-  scatter(subintervals in splitStringToArray.out) {
+  scatter(subinterval in flatten(splitStringToArray.out)) {
+    call getChrCoefficient {
+      input:
+        refDict = resources[reference].refDict,
+        region = subinterval
+    }
+
     call runMutect2 {
       input:
-        intervals = subintervals,
+        intervals = [subinterval],
         intervalsProvided = intervalsProvided,
         intervalFile = intervalFile,
         tumorBam = tumorBam,
@@ -109,7 +115,8 @@ Map[String, GenomeResources] resources = {
         modules = resources [ reference ].modules + ' ' + gatk,
         refFai = resources[reference].refFai,
         refFasta = resources[reference].refFasta,
-        refDict = resources[reference].refDict
+        refDict = resources[reference].refDict,
+        scaleCoefficient = getChrCoefficient.coeff
 
     }
   }
@@ -175,6 +182,46 @@ task splitStringToArray {
   }
 }
 
+# ================================================================
+#  Scaling coefficient - use to scale RAM allocation by chromosome
+# ================================================================
+task getChrCoefficient {
+  input {
+    Int memory = 1
+    Int timeout = 1
+    String region
+    String refDict
+  }
+
+  parameter_meta {
+    refDict: ".dict file for the reference genome, we use it to extract chromosome ids"
+    timeout: "Hours before task timeout"
+    region: "Region to extract a chromosome to check"
+    memory: "Memory allocated for this job"
+  }
+
+  command <<<
+    CHROM=$(echo ~{region} | sed 's/:.*//')
+    LARGEST=$(grep SN:chr ~{refDict} | cut -f 3 | sed 's/LN://' | sort -n | tail -n 1)
+    grep -w SN:$CHROM ~{refDict} | cut -f 3 | sed 's/.*://' | awk -v largest_chr=$LARGEST '{print int(($1/largest_chr + 0.1) * 10)/10}'
+  >>>
+
+  runtime {
+    memory:  "~{memory} GB"
+    timeout: "~{timeout}"
+  }
+
+  output {
+    String coeff = read_string(stdout())
+  }
+
+  meta {
+    output_meta: {
+      coeff: "Length ratio as relative to the largest chromosome."
+    }
+  }
+}
+
 task runMutect2 {
   input {
     String modules
@@ -198,6 +245,7 @@ task runMutect2 {
     Int threads = 4
     Int memory = 32
     Int timeout = 24
+    Float scaleCoefficient = 1.0
   }
 
   parameter_meta {
@@ -206,6 +254,7 @@ task runMutect2 {
     threads: "Requested CPU threads"
     memory: "Memory allocated to job (in GB)."
     timeout: "Maximum amount of time (in hours) the task can run for."
+    scaleCoefficient: "Scaling coefficient for RAM allocation, depends on chromosome size"
   }
 
   String outputVcf = if (defined(normalBam)) then outputBasename + "." + mutectTag + ".vcf" else outputBasename + "." + mutectTag + ".tumor_only.vcf"
@@ -259,7 +308,7 @@ task runMutect2 {
 
   runtime {
     cpu: "~{threads}"
-    memory:  "~{memory} GB"
+    memory:  "~{round(memory * scaleCoefficient)} GB"
     modules: "~{modules}"
     timeout: "~{timeout}"
   }

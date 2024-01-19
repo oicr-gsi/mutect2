@@ -45,6 +45,8 @@ Parameter|Value|Default|Description
 `splitStringToArray.lineSeparator`|String|","|Interval group separator - these are the intervals to split by.
 `splitStringToArray.memory`|Int|1|Memory allocated to job (in GB)
 `splitStringToArray.timeout`|Int|1|Maximum amount of time (in hours) the task can run for.
+`getChrCoefficient.memory`|Int|1|Memory allocated for this job
+`getChrCoefficient.timeout`|Int|1|Hours before task timeout
 `runMutect2.mutectTag`|String|"mutect2"|version tag for mutect
 `runMutect2.mutect2ExtraArgs`|String?|None|placehoulder for extra arguments
 `runMutect2.threads`|Int|4|Requested CPU threads
@@ -71,85 +73,119 @@ Output | Type | Description
 
 ## Commands
  
- This section lists command(s) run by mutect2 workflow
+This section lists command(s) run by mutect2 workflow
  
-  
-  ```
-      echo "~{intervalsToParallelizeBy}" | tr '~{lineSeparator}' '\n'
- ```
-  ```
-      set -euo pipefail
-  
-      gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{tumorBam} -O tumor_name.txt -encode
-      tumor_command_line="-I ~{tumorBam} -tumor `cat tumor_name.txt`"
-  
-      cp ~{refFai} .
-      cp ~{refDict} .
-  
-      if [ -f "~{normalBam}" ]; then
-        gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{normalBam} -O normal_name.txt -encode
-        normal_command_line="-I ~{normalBam} -normal `cat normal_name.txt`"
-      else
-        normal_command_line=""
-      fi
-  
-      if [ -f "~{intervalFile}" ]; then
-        if ~{intervalsProvided} ; then
-          intervals_command_line="-L ~{sep=" -L " intervals} -L ~{intervalFile} -isr INTERSECTION"
-        else
-          intervals_command_line="-L ~{intervalFile}"
-        fi
-      else
-        if ~{intervalsProvided} ; then
-          intervals_command_line="-L ~{sep=" -L " intervals} "
-        fi
-      fi
-  
-      gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
-      -R ~{refFasta} \
-      $tumor_command_line \
-      $normal_command_line \
-      ~{"--germline-resource " + gnomad} \
-      ~{"-pon " + pon} \
-      $intervals_command_line \
-      -O "~{outputVcf}" \
-      ~{mutect2ExtraArgs}
-    ```
-  ```
-      set -euo pipefail
-  
-      gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
-      -I ~{sep=" -I " vcfs} \
-      -O ~{outputName}
-    ```
-  ```
-      set -euo pipefail
-  
-      gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
-      -stats ~{sep=" -stats " stats} \
-      -O ~{outputStats}
-    ```
-  ```
-      set -euo pipefail
-  
-      cp ~{refFai} .
-      cp ~{refDict} .
-  
-      gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
-      -V ~{unfilteredVcf} \
-      -R ~{refFasta} \
-      -O ~{filteredVcfName} \
-      ~{"-stats " + mutectStats} \
-      --filtering-stats ~{filteredVcfName}.stats \
-      ~{filterExtraArgs}
-  
-      bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
-      bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
-  
-      gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
-      gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
-    ```
- ## Support
+
+* Running mutect2
+ 
+Mutect requires alignment files (.bam) as an input. Also, various other resources are needed. The results produced by the workflow
+are variant calls, provisioned as a .vcf file.
+ 
+### Split interval sctring by comma
+ 
+```
+    echo "~{intervalsToParallelizeBy}" | tr '~{lineSeparator}' '\n'
+```
+ 
+### Getting Chromosome Scaling Coefficient
+ 
+```
+     CHROM=$(echo ~{region} | sed 's/:.*//')
+     LARGEST=$(grep SN:chr ~{refDict} | cut -f 3 | sed 's/LN://' | sort -n | tail -n 1)
+     grep -w SN:$CHROM ~{refDict} | cut -f 3 | sed 's/.*://' | awk -v largest_chr=$LARGEST '{print int(($1/largest_chr + 0.1) * 10)/10}'
+```
+ 
+### Mutect2 (GATK)
+ 
+```
+     set -euo pipefail
+ 
+     gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{tumorBam} -O tumor_name.txt -encode
+     tumor_command_line="-I ~{tumorBam} -tumor `cat tumor_name.txt`"
+ 
+     cp ~{refFai} .
+     cp ~{refDict} .
+ 
+     if [ -f "~{normalBam}" ]; then
+       gatk --java-options "-Xmx1g" GetSampleName -R ~{refFasta} -I ~{normalBam} -O normal_name.txt -encode
+       normal_command_line="-I ~{normalBam} -normal `cat normal_name.txt`"
+     else
+       normal_command_line=""
+     fi
+ 
+     if [ -f "~{intervalFile}" ]; then
+       if ~{intervalsProvided} ; then
+         intervals_command_line="-L ~{sep=" -L " intervals} -L ~{intervalFile} -isr INTERSECTION"
+       else
+         intervals_command_line="-L ~{intervalFile}"
+       fi
+     else
+       if ~{intervalsProvided} ; then
+         intervals_command_line="-L ~{sep=" -L " intervals} "
+       fi
+     fi
+ 
+     if [[ ! -z "~{gnomad}" ]] ; then
+       germline_resource_line="--germline-resource ~{gnomad}"
+     else 
+       germline_resource_line=""
+     fi
+ 
+     gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
+     -R ~{refFasta} \
+     $tumor_command_line \
+     $normal_command_line \
+     $germline_resource_line \
+     ~{"-pon " + pon} \
+     $intervals_command_line \
+     -O "~{outputVcf}" \
+     ~{mutect2ExtraArgs}
+```
+ 
+### MergeVcfs (GATK)
+ 
+```
+   set -euo pipefail
+ 
+   gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
+   -I ~{sep=" -I " vcfs} \
+   -O ~{outputName}
+```
+ 
+### MergeMutectStats (GATK)
+ 
+```
+   set -euo pipefail
+ 
+   gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
+   -stats ~{sep=" -stats " stats} \
+   -O ~{outputStats}
+```
+ 
+### FilterMutectCalls (GATK)
+ 
+```
+   set -euo pipefail
+
+   cp ~{refFai} .
+   cp ~{refDict} .
+ 
+   gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
+   -V ~{unfilteredVcf} \
+   -R ~{refFasta} \
+   -O ~{filteredVcfName} \
+   ~{"-stats " + mutectStats} \
+   --filtering-stats ~{filteredVcfName}.stats \
+   ~{filterExtraArgs}
+ 
+   bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
+   bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
+ 
+   gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
+   gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
+```
+
+## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 

@@ -1,3 +1,6 @@
+## 1.0.8 - 2024-01-20
+- GRD-728 Introducing RAM scaling by chromosome
+
 ## Unreleased - 2021-11-25
 - GP-2883 Making RT tests more robust
 
