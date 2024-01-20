@@ -95,7 +95,8 @@ Map[String, GenomeResources] resources = {
     call getChrCoefficient {
       input:
         refDict = resources[reference].refDict,
-        region = subinterval
+        region = subinterval,
+        modules = resources [ reference ].modules
     }
 
     call runMutect2 {
@@ -189,6 +190,7 @@ task getChrCoefficient {
   input {
     Int memory = 1
     Int timeout = 1
+    String modules
     String region
     String refDict
   }
@@ -198,6 +200,7 @@ task getChrCoefficient {
     timeout: "Hours before task timeout"
     region: "Region to extract a chromosome to check"
     memory: "Memory allocated for this job"
+    modules: "Environment module names and version to load (space separated) before command execution"
   }
 
   command <<<
@@ -208,6 +211,7 @@ task getChrCoefficient {
 
   runtime {
     memory:  "~{memory} GB"
+    modules: "~{modules}"
     timeout: "~{timeout}"
   }
 
