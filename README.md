@@ -81,7 +81,7 @@ This section lists command(s) run by mutect2 workflow
 Mutect requires alignment files (.bam) as an input. Also, various other resources are needed. The results produced by the workflow
 are variant calls, provisioned as a .vcf file.
  
-### Split interval sctring by comma
+### Split interval string by comma
  
 ```
     echo "~{intervalsToParallelizeBy}" | tr '~{lineSeparator}' '\n'
