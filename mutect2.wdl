@@ -205,8 +205,12 @@ task getChrCoefficient {
 
   command <<<
     CHROM=$(echo ~{region} | sed 's/:.*//')
-    LARGEST=$(grep SN:chr ~{refDict} | cut -f 3 | sed 's/LN://' | sort -n | tail -n 1)
-    grep -w SN:$CHROM ~{refDict} | cut -f 3 | sed 's/.*://' | awk -v largest_chr=$LARGEST '{print int(($1/largest_chr + 0.1) * 10)/10}'
+    if [[ $CHROM ]]; then
+      LARGEST=$(grep SN:chr ~{refDict} | cut -f 3 | sed 's/LN://' | sort -n | tail -n 1)
+      grep -w SN:$CHROM ~{refDict} | cut -f 3 | sed 's/.*://' | awk -v largest_chr=$LARGEST '{print int(($1/largest_chr + 0.1) * 10)/10}'
+    else
+      echo "1.0"
+    fi
   >>>
 
   runtime {
