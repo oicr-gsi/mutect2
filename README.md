@@ -51,6 +51,7 @@ Parameter|Value|Default|Description
 `runMutect2.mutect2ExtraArgs`|String?|None|placehoulder for extra arguments
 `runMutect2.threads`|Int|4|Requested CPU threads
 `runMutect2.memory`|Int|32|Memory allocated to job (in GB).
+`runMutect2.minMemory`|Int|6|A minimum amount of memory allocated to the task, overrides the scaled RAM setting
 `runMutect2.timeout`|Int|24|Maximum amount of time (in hours) the task can run for.
 `mergeVCFs.memory`|Int|4|Memory allocated for job
 `mergeVCFs.timeout`|Int|12|Hours before task timeout

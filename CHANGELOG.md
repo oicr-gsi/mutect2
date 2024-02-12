@@ -1,3 +1,6 @@
+## 1.0.9 - 2024-02-12
+- Added minMemory parameter for runMutect2 task to better handle RAM allocation for small chromosomes
+
 ## 1.0.8 - 2024-01-20
 - GRD-728 Introducing RAM scaling by chromosome
 
