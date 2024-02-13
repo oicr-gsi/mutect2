@@ -252,15 +252,33 @@ task runMutect2 {
     String outputBasename
     Int threads = 4
     Int memory = 32
+    Int minMemory = 6
     Int timeout = 24
     Float scaleCoefficient = 1.0
   }
 
   parameter_meta {
+    modules: "Modules to be used by the task"    
+    refFasta: "Path to the reference fasta"
+    refFai: "Reference fasta fai index"
+    refDict: "Reference fasta dict file"
+    intervalFile: "Interval file, optional" 
+    intervals: "Normally, this is a chromosome. This task is parallelized"
+    intervalsProvided: "Flag that shows that we have intervals provided"
+    tumorBam: "Tumor bam file path" 
+    tumorBai: "Tumor bai index"
+    normalBam: "Normal bam" 
+    normalBai: "Normal bai"
+    pon: "Panel of normals"
+    ponIdx: "Index for PON"
+    gnomad: "Gnomad resource, reference germline variants"
+    gnomadIdx: "Index for GNOMAD"
+    outputBasename: "basename for output"
     mutectTag: "version tag for mutect"
     mutect2ExtraArgs: "placehoulder for extra arguments"
     threads: "Requested CPU threads"
     memory: "Memory allocated to job (in GB)."
+    minMemory: "A minimum amount of memory allocated to the task, overrides the scaled RAM setting"
     timeout: "Maximum amount of time (in hours) the task can run for."
     scaleCoefficient: "Scaling coefficient for RAM allocation, depends on chromosome size"
   }
@@ -268,6 +286,7 @@ task runMutect2 {
   String outputVcf = if (defined(normalBam)) then outputBasename + "." + mutectTag + ".vcf" else outputBasename + "." + mutectTag + ".tumor_only.vcf"
   String outputVcfIdx = outputVcf + ".idx"
   String outputStats = outputVcf + ".stats"
+  Int allocatedMemory = if minMemory > round(memory * scaleCoefficient) then minMemory else round(memory * scaleCoefficient)
 
   command <<<
     set -euo pipefail
@@ -316,7 +335,7 @@ task runMutect2 {
 
   runtime {
     cpu: "~{threads}"
-    memory:  "~{round(memory * scaleCoefficient)} GB"
+    memory:  "~{allocatedMemory} GB"
     modules: "~{modules}"
     timeout: "~{timeout}"
   }
