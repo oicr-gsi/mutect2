@@ -64,12 +64,12 @@ Parameter|Value|Default|Description
 
 ### Outputs
 
-Output | Type | Description
----|---|---
-`filteredVcfFile`|File|the filtered vcf file
-`filteredVcfIndex`|File|Index of filtered vcf file
-`mergedUnfilteredStats`|File|Stats for merged unfiltered files
-`filteringStats`|File|Stats for filtering process
+Output | Type | Description | Labels
+---|---|---|---
+`filteredVcfFile`|File|the filtered vcf file|vidarr_label: filteredVcfFile
+`filteredVcfIndex`|File|Index of filtered vcf file|vidarr_label: filteredVcfIndex
+`mergedUnfilteredStats`|File|Stats for merged unfiltered files|vidarr_label: mergedUnfilteredStats
+`filteringStats`|File|Stats for filtering process|vidarr_label: filteringStats
 
 
 ## Commands
