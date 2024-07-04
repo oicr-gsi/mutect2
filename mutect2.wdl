@@ -48,11 +48,23 @@ workflow mutect2 {
       url: "https://github.com/samtools/samtools/archive/0.1.19.tar.gz"
     }]
     output_meta: {
-      filteredVcfFile: "the filtered vcf file",
-      filteredVcfIndex: "Index of filtered vcf file",
-      mergedUnfilteredStats: "Stats for merged unfiltered files",
-      filteringStats: "Stats for filtering process"
+    filteredVcfFile: {
+        description: "the filtered vcf file",
+        vidarr_label: "filteredVcfFile"
+    },
+    filteredVcfIndex: {
+        description: "Index of filtered vcf file",
+        vidarr_label: "filteredVcfIndex"
+    },
+    mergedUnfilteredStats: {
+        description: "Stats for merged unfiltered files",
+        vidarr_label: "mergedUnfilteredStats"
+    },
+    filteringStats: {
+        description: "Stats for filtering process",
+        vidarr_label: "filteringStats"
     }
+}
   }
 
 Map[String, GenomeResources] resources = {
