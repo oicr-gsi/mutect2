@@ -41,7 +41,7 @@ workflow mutect2 {
   meta {
     author: "Angie Mosquera, Alexander Fortuna"
     email: "amosquera@oicr.on.ca, afortuna@oicr.on.ca"
-    description: "Somatic short variant analysis."
+    description: "muTect2 is a tool from GATK suite. muTect2 calls somatic short mutations via local assembly of haplotypes. Short mutations include single nucleotide (SNA) and insertion and deletion (indel) alterations. The caller uses a Bayesian somatic genotyping model. This wrapper workflow accepts either paired tumor/normal inputs or tumor-only inputs in BAM format. It also accepts optional Panel Of Normals and other parameters. The workflow outputs a filtered vcf along with index and metrics files."
     dependencies: [
     {
       name: "samtools/1.9",
