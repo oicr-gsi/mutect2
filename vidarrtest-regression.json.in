@@ -4,7 +4,7 @@
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
             "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "ESBCC_0005_Tumor_Matched_Normal_EX",
+            "mutect2.outputFileNamePrefix": "ESBCC_Test",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -15,7 +15,7 @@
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/S31285117_Covered.bed",
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/Test_Covered.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -26,7 +26,7 @@
             "mutect2.mergeVCFs.timeout": null,
             "mutect2.normalBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/ESBCC_Test02.merged.sorted.filter.deduped.realigned.recal.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -38,7 +38,7 @@
             },
             "mutect2.normalBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/ESBCC_Test02.merged.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -66,7 +66,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/ESBCC_Test01.merged.sorted.filter.deduped.realigned.recal.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -78,7 +78,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/ESBCC_Test01.merged.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -94,12 +94,12 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "ESBCC_0005_Tumor_Matched_Normal_EX",
+        "id": "ESBCC_Test",
         "metadata": {
             "mutect2.filteredVcfFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_0005_Tumor_Matched_Normal_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -107,7 +107,7 @@
             "mutect2.filteredVcfIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_0005_Tumor_Matched_Normal_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -115,7 +115,7 @@
             "mutect2.filteringStats": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_0005_Tumor_Matched_Normal_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -123,7 +123,7 @@
             "mutect2.mergedUnfilteredStats": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_0005_Tumor_Matched_Normal_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -131,7 +131,7 @@
             "mutect2.unfilteredVcfFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_0005_Tumor_Matched_Normal_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -139,7 +139,7 @@
             "mutect2.unfilteredVcfIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_0005_Tumor_Matched_Normal_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -149,7 +149,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/ESBCC_0005_Tumor_Matched_Normal_EX.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -159,7 +159,7 @@
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
             "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "TGL20_0151_Tumor_Only_EX",
+            "mutect2.outputFileNamePrefix": "TGL20_Test",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -170,7 +170,7 @@
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/S07604715_Regions_sorted.bed",
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/Test_Regions_sorted.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -199,7 +199,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/TGL20_0151_Bn_P_EX_5385_TS.sorted.filter.deduped.realign.recal.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/TGL20_Test01.sorted.filter.deduped.realign.recal.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -211,7 +211,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/TGL20_0151_Bn_P_EX_5385_TS.sorted.filter.deduped.realign.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/TGL20_Test01.sorted.filter.deduped.realign.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -227,12 +227,12 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "TGL20_0151_Tumor_Only_EX",
+        "id": "TGL20_Test",
         "metadata": {
             "mutect2.filteredVcfFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_0151_Tumor_Only_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -240,7 +240,7 @@
             "mutect2.filteredVcfIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_0151_Tumor_Only_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -248,7 +248,7 @@
             "mutect2.filteringStats": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_0151_Tumor_Only_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -256,7 +256,7 @@
             "mutect2.mergedUnfilteredStats": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_0151_Tumor_Only_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -264,7 +264,7 @@
             "mutect2.unfilteredVcfFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_0151_Tumor_Only_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -272,7 +272,7 @@
             "mutect2.unfilteredVcfIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_0151_Tumor_Only_EX_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -282,7 +282,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/TGL20_0151_Tumor_Only_EX.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_02.metrics",
                 "type": "script"
             }
         ]
@@ -332,7 +332,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -344,7 +344,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -415,7 +415,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/Tumor_only_no_interval_file.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_03.metrics",
                 "type": "script"
             }
         ]
@@ -436,7 +436,7 @@
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test.val.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -465,7 +465,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -477,7 +477,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -548,7 +548,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/Tumor_only.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_04.metrics",
                 "type": "script"
             }
         ]
@@ -569,7 +569,7 @@
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test.val.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -598,7 +598,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -610,7 +610,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -681,7 +681,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/Tumor_only_no_parallel_intervalFile.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_05.metrics",
                 "type": "script"
             }
         ]
@@ -713,7 +713,7 @@
             "mutect2.mergeVCFs.timeout": null,
             "mutect2.normalBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022R.val.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test02.val.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -725,7 +725,7 @@
             },
             "mutect2.normalBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022R.val.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test02.val.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -753,7 +753,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -765,7 +765,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -836,7 +836,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/Tumor_normal.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_06.metrics",
                 "type": "script"
             }
         ]
@@ -857,7 +857,7 @@
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
             "mutect2.gnomadIdx": null,
-            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022.val.bed",
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test.val.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -868,7 +868,7 @@
             "mutect2.mergeVCFs.timeout": null,
             "mutect2.normalBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022R.val.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test02.val.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -880,7 +880,7 @@
             },
             "mutect2.normalBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022R.val.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test02.val.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -908,7 +908,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -920,7 +920,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/input_data/PCSI0022P.sorted.filter.deduped.realigned.recal.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test01.sorted.filter.deduped.realigned.recal.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -991,7 +991,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/Tumor_normal_no_parallel_intervalFile.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_07.metrics",
                 "type": "script"
             }
         ]
@@ -1001,7 +1001,7 @@
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg38",
             "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "MATS_0009_Ly_P_WG",
+            "mutect2.outputFileNamePrefix": "MATS_Test",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -1010,7 +1010,7 @@
             "mutect2.filter.timeout": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
-            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/ALL.AS,CH,CM,NN,SW,WG.hg38.bed",
+            "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/ALL.AS,CH,CM,NN,SW,WG.hg38.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
             "mutect2.mergeStats.modules": null,
@@ -1037,7 +1037,7 @@
             "mutect2.splitStringToArray.timeout": null,
             "mutect2.tumorBai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/varscan/MATS_0009_Ly_P_WG_AML_01_S2.chr22.filter.deduped.realigned.recalibrated.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/varscan/test_inputs/MATS_Test01.chr22.filter.deduped.realigned.recalibrated.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -1049,7 +1049,7 @@
             },
             "mutect2.tumorBam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/varscan/MATS_0009_Ly_P_WG_AML_01_S2.chr22.filter.deduped.realigned.recalibrated.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/varscan/test_inputs/MATS_Test01.chr22.filter.deduped.realigned.recalibrated.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -1122,7 +1122,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/hg38_with_gnomad.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_08.metrics",
                 "type": "script"
             }
         ]
