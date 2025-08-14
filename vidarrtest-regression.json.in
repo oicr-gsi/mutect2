@@ -149,7 +149,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -282,7 +282,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_02.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_02.metrics",
                 "type": "script"
             }
         ]
@@ -415,7 +415,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_03.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_03.metrics",
                 "type": "script"
             }
         ]
@@ -548,7 +548,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_04.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_04.metrics",
                 "type": "script"
             }
         ]
@@ -681,7 +681,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_05.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_05.metrics",
                 "type": "script"
             }
         ]
@@ -836,7 +836,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_06.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_06.metrics",
                 "type": "script"
             }
         ]
@@ -991,7 +991,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_07.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_07.metrics",
                 "type": "script"
             }
         ]
@@ -1122,7 +1122,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/workflow_test_08.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_08.metrics",
                 "type": "script"
             }
         ]
