@@ -79,7 +79,7 @@ Map[String, GenomeResources] resources = {
   "hg38": {
         "refDict" : "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.dict",
     		"refFai" : "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.fa.fai",
-    		"refFasta"  "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.fa",
+    		"refFasta" : "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.fa",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
     		"modules" : "hg38-bwamem2-index-noalt/2.2.1 samtools/1.9 hg38-gatk-gnomad/2.0"
@@ -95,10 +95,10 @@ Map[String, GenomeResources] resources = {
   "grch38": {
         "refDict" : "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-2.2.1/grch38_noAlt.dict",
                 "refFai" : "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-noalt-2.2.1/grch38_noAlt.fa.fai",
-                "refFasta"  "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-noalt-2.2.1/grch38_noAlt.fa",
+                "refFasta" : "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-noalt-2.2.1/grch38_noAlt.fa",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
-                "modules" : "grch38-bwamem2-index-noalt/2.2.1 samtools/1.9 hg38-gatk-gnomad/2.0"
+                "modules" : "grch38-bwamem2-index/2.2.1 samtools/1.9 hg38-gatk-gnomad/2.0"
   }
 
 }
