@@ -77,12 +77,20 @@ Map[String, GenomeResources] resources = {
         "gnomadIdx": ""
   },
   "hg38": {
-        "refDict" : "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.dict",
-    		"refFai" : "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.fa.fai",
-    		"refFasta" : "/.mounts/labs/gsi/modulator/sw/data/hg38-bwamem2-index-noalt-2.2.1/hg38_noAlt.fa",
+        "refDict" : "$HG38_ROOT/hg38_random.dict",
+    		"refFai" : "$HG38_ROOT/hg38_random.fa.fai",
+    		"refFasta" : "$HG38_ROOT/hg38_random.fa",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
-    		"modules" : "hg38-bwamem2-index-noalt/2.2.1 samtools/1.9 hg38-gatk-gnomad/2.0"
+    		"modules" : "hg38/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
+  },
+  "hg38_noAlt": {
+        "refDict" : "$HG38_ROOT/hg38-noalt-p12/hg38_noAlt.dict",
+    		"refFai" : "$HG38_ROOT/hg38-noalt-p12/hg38_noAlt.fa.fai",
+    		"refFasta" : "$HG38_ROOT/hg38-noalt-p12/hg38_noAlt.fa",
+        "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
+        "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
+    		"modules" : "hg38-noalt/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
   },
   "mm10": {
         "refDict" : "$MM10_ROOT/mm10.dict",
@@ -93,12 +101,12 @@ Map[String, GenomeResources] resources = {
         "gnomadIdx": ""
   },
   "grch38": {
-        "refDict" : "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-2.2.1/grch38_noAlt.dict",
-                "refFai" : "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-noalt-2.2.1/grch38_noAlt.fa.fai",
-                "refFasta" : "/.mounts/labs/gsi/modulator/sw/data/grch38-bwamem2-index-noalt-2.2.1/grch38_noAlt.fa",
+        "refDict" : "$GRCH38_ROOT/grch38_noAlt.dict",
+                "refFai" : "$GRCH38_ROOT/grch38_noAlt.fa.fai",
+                "refFasta" : "$GRCH38_ROOT/grch38_noAlt.fa",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
-                "modules" : "grch38-bwamem2-index/2.2.1 samtools/1.9 hg38-gatk-gnomad/2.0"
+                "modules" : "grch38/p15 samtools/1.9 hg38-gatk-gnomad/2.0"
   }
 
 }
