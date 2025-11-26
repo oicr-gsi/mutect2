@@ -7,6 +7,7 @@ struct GenomeResources {
     String modules
     String gnomad
     String gnomadIdx
+    String refDict
 }
 
 workflow mutect2 {
@@ -22,6 +23,12 @@ workflow mutect2 {
     String reference
     String gatk
     String outputFileNamePrefix
+    String? refDict
+    String? refFai
+    String? refFasta
+    String? modules
+    String? gnomad
+    String? gnomadIdx
   }
 
   parameter_meta {
@@ -36,6 +43,12 @@ workflow mutect2 {
     gatk: "gatk version to be used"
     reference: "the reference genome for input sample"
     outputFileNamePrefix: "prefix of output file"
+    refDict: "Path to .dict file for the reference genome"
+    refFai: "Path to fasta index file for reference"
+    refFasta: "Path to fasta reference file"
+    modules: "Reference module"
+    gnomad: "Path to gnomad"
+    gnomadIdx: "Path to gnomad Index"
   }
 
   meta {
@@ -122,9 +135,9 @@ Map[String, GenomeResources] resources = {
   scatter(subinterval in flatten(splitStringToArray.out)) {
     call getChrCoefficient {
       input:
-        refDict = resources[reference].refDict,
+        refDict = select_first([refDict,  resources[reference].refDict]),
         region = subinterval,
-        modules = resources [ reference ].modules
+        modules = select_first([modules, resources[reference].modules])
     }
 
     call runMutect2 {
@@ -138,13 +151,13 @@ Map[String, GenomeResources] resources = {
         normalBai = normalBai,
         pon = pon,
         ponIdx = ponIdx,
-        gnomad = resources [ reference ].gnomad,
-        gnomadIdx = resources [ reference ].gnomadIdx,
+        gnomad = select_first([gnomad, resources [ reference ].gnomad]),
+        gnomadIdx = select_first([gnomadIdx, resources [ reference ].gnomadIdx]),
         outputBasename = outputBasename,
-        modules = resources [ reference ].modules + ' ' + gatk,
-        refFai = resources[reference].refFai,
-        refFasta = resources[reference].refFasta,
-        refDict = resources[reference].refDict,
+        modules = select_first([modules,  resources [ reference ].modules + ' ' + gatk]),
+        refFai = select_first([refFai, resources[reference].refFai]),
+        refFasta = select_first([refFasta, resources[reference].refFasta]),
+        refDict = select_first([refDict, resources[reference].refDict]),
         scaleCoefficient = getChrCoefficient.coeff
 
     }
@@ -158,14 +171,14 @@ Map[String, GenomeResources] resources = {
     input:
       vcfs = unfilteredVcfs,
       vcfIndices = unfilteredVcfIndices,
-      modules = resources [ reference ].modules + ' ' + gatk,
-      refFasta = resources[reference].refFasta
+      modules = select_first([modules,  resources [ reference ].modules + ' ' + gatk]),
+      refFasta = select_first([refFasta, resources[reference].refFasta])
   }
 
   call mergeStats {
     input:
       stats = unfilteredStats,
-      modules = resources [ reference ].modules + ' ' + gatk,
+      modules = select_first([modules,  resources [ reference ].modules + ' ' + gatk]) 
   }
 
   call filter {
@@ -174,10 +187,10 @@ Map[String, GenomeResources] resources = {
       unfilteredVcf = mergeVCFs.mergedVcf,
       unfilteredVcfIdx = mergeVCFs.mergedVcfIdx,
       mutectStats = mergeStats.mergedStats,
-      modules = resources [ reference ].modules + ' ' + gatk,
-      refFasta = resources[reference].refFasta,
-      refDict = resources[reference].refDict,
-      refFai = resources[reference].refFai
+      modules = select_first([modules,  resources [ reference ].modules + ' ' + gatk]),
+      refFai = select_first([refFai, resources[reference].refFai]),
+      refFasta = select_first([refFasta, resources[reference].refFasta]),
+      refDict = select_first([refDict, resources[reference].refDict])
   }
 
 
@@ -220,7 +233,7 @@ task getChrCoefficient {
     Int timeout = 1
     String modules
     String region
-    String refDict
+    String refDict = "Abc"
   }
 
   parameter_meta {
@@ -268,7 +281,7 @@ task runMutect2 {
     String? intervalFile
     Array[String]? intervals
     Boolean intervalsProvided
-    File tumorBam
+    File tumorBam 
     File tumorBai
     File? normalBam
     File? normalBai
