@@ -1042,6 +1042,8 @@
             "mutect2.filter.timeout": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
+            "mutect2.gnomad": null,
+            "mutect2.gnomadIdx": null,
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/input_data/ALL.AS,CH,CM,NN,SW,WG.hg38.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
