@@ -7,7 +7,6 @@ struct GenomeResources {
     String modules
     String gnomad
     String gnomadIdx
-    String refDict
 }
 
 workflow mutect2 {
