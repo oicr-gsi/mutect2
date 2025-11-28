@@ -97,9 +97,9 @@ Map[String, GenomeResources] resources = {
     		"modules" : "hg38/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
   },
   "hg38_noAlt": {
-        "refDict" : "$HG38_NOALT_ROOT/hg38-noalt-p12/hg38_noAlt.dict",
-    		"refFai" : "$HG38_NOALT_ROOT/hg38-noalt-p12/hg38_noAlt.fa.fai",
-    		"refFasta" : "$HG38_NOALT_ROOT/hg38-noalt-p12/hg38_noAlt.fa",
+        "refDict" : "$HG38_NOALT_ROOT/hg38_noAlt.dict",
+    		"refFai" : "$HG38_NOALT_ROOT/hg38_noAlt.fa.fai",
+    		"refFasta" : "$HG38_NOALT_ROOT/hg38_noAlt.fa",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
     		"modules" : "hg38-noalt/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
