@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2025-04-23
 - [GRD-795](https://jira.oicr.on.ca/browse/GRD-795) - Expanded built-in documentation (metadata changes only).
 
+## [1.1.2] - 2025-11-28
+### Added
+- [GRD-969 & GRD-985] - Add noAlt-hg38 refrence and grch38 reference. Added option for users to  add reference file paths  
+
+## [1.1.1] - 2025-11-21
+### Added
+- Baked-in gatk module set to "gatk/4.2.6.1"
+
 ## [1.1.0] - 2024-06-25
 ### Added
 - [GRD-797](https://jira.oicr.on.ca/browse/GRD-797) - Add vidarr labels to outputs (changes to metadata only)
