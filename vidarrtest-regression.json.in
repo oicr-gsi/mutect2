@@ -4,7 +4,7 @@
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
             "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "ESBCC_Test",
+            "mutect2.outputFileNamePrefix": "ESBCC_Test_Tumor_Matched_Normal_EX",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -94,7 +94,7 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "ESBCC_Test",
+        "id": "ESBCC_0005_Tumor_Matched_Normal_EX",
         "metadata": {
             "mutect2.filteredVcfFile": {
                 "contents": [
@@ -159,7 +159,7 @@
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
             "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "TGL20_Test",
+            "mutect2.outputFileNamePrefix": "TGL20_Test_Tumor_Only_EX",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -227,7 +227,7 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "TGL20_Test",
+        "id": "TGL20_0151_Tumor_Only_EX",
         "metadata": {
             "mutect2.filteredVcfFile": {
                 "contents": [
@@ -1001,7 +1001,7 @@
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg38",
             "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "MATS_Test",
+            "mutect2.outputFileNamePrefix": "MATS_0009_Ly_P_WG",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
