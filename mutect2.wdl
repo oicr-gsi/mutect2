@@ -100,7 +100,7 @@ Map[String, GenomeResources] resources = {
   },
   "grch38": {
         "refDict" : "$GRCH38_ROOT/grch38_noAlt.dict",
-                "refFai" : "$GRCH38_ROOT/GCA_000001405.15_GRCh38_no_alt_analysis_set.fnafai",
+                "refFai" : "$GRCH38_ROOT/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai",
                 "refFasta" : "$GRCH38_ROOT/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
