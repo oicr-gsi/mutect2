@@ -72,7 +72,7 @@ Output | Type | Description | Labels
 `filteredVcfIndex`|File|Index of filtered vcf file|vidarr_label: filteredVcfIndex
 `mergedUnfilteredStats`|File|Stats for merged unfiltered files|vidarr_label: mergedUnfilteredStats
 `filteringStats`|File|Stats for filtering process|vidarr_label: filteringStats
-`metricsFile`|File|Summary metrics derived from the filtered Mutect2 VCF.|
+`metricsFile`|File|Summary metrics from filtered vcf file|vidarr_label: metricsFile
 
 
 ./commands.txt found, printing out the content...

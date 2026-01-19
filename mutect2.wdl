@@ -62,6 +62,10 @@ workflow mutect2 {
         description: "Stats for filtering process",
         vidarr_label: "filteringStats"
     }
+    metricsFile: {
+        description: "Summary metrics from filtered vcf file",
+        vidarr_label: "metricsFile"
+    }
   }
 }
 
@@ -630,11 +634,5 @@ task mutect2Metrics {
 
   output {
     File metricsFile = "~{metricsTsvName}"
-  }
-
-  meta {
-    output_meta: {
-      metricsFile: "Summary metrics derived from the filtered Mutect2 VCF."
-    }
   }
 }
