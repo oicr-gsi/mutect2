@@ -3,8 +3,7 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "ESBCC_Test_Tumor_Matched_Normal_EX",
+            "mutect2.outputFileNamePrefix": "ESBCC_0005_Tumor_Matched_Normal_EX",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -149,7 +148,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/ESBCC_0005_Tumor_Matched_Normal_EX.metrics",
                 "type": "script"
             }
         ]
@@ -158,8 +157,7 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
-            "mutect2.outputFileNamePrefix": "TGL20_Test_Tumor_Only_EX",
+            "mutect2.outputFileNamePrefix": "TGL20_0151_Tumor_Only_EX",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
@@ -282,7 +280,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_02.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/TGL20_0151_Tumor_Only_EX.metrics",
                 "type": "script"
             }
         ]
@@ -291,7 +289,6 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
             "mutect2.outputFileNamePrefix": "Tumor_only_no_interval_file",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
@@ -415,7 +412,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_03.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_only_no_interval_file.metrics",
                 "type": "script"
             }
         ]
@@ -424,7 +421,6 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
             "mutect2.outputFileNamePrefix": "Tumor_only",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
@@ -548,7 +544,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_04.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_only.metrics",
                 "type": "script"
             }
         ]
@@ -557,7 +553,6 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
             "mutect2.outputFileNamePrefix": "Tumor_only_no_parallel_intervalFile",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
@@ -681,7 +676,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_05.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_only_no_parallel_intervalFile.metrics",
                 "type": "script"
             }
         ]
@@ -690,7 +685,6 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
             "mutect2.outputFileNamePrefix": "Tumor_normal",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
@@ -836,7 +830,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_06.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_normal.metrics",
                 "type": "script"
             }
         ]
@@ -845,7 +839,6 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.gatk": "gatk/4.1.6.0",
             "mutect2.outputFileNamePrefix": "Tumor_normal_no_parallel_intervalFile",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
@@ -991,7 +984,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_07.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_normal_no_parallel_intervalFile.metrics",
                 "type": "script"
             }
         ]
@@ -1000,7 +993,6 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg38",
-            "mutect2.gatk": "gatk/4.1.6.0",
             "mutect2.outputFileNamePrefix": "MATS_0009_Ly_P_WG",
             "mutect2.filter.memory": null,
             "mutect2.filter.modules": null,
@@ -1122,7 +1114,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.0/workflow_test_08.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/hg38_with_gnomad.metrics",
                 "type": "script"
             }
         ]

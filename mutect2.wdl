@@ -20,7 +20,6 @@ workflow mutect2 {
     File? pon
     File? ponIdx
     String reference
-    String gatk
     String outputFileNamePrefix
   }
 
@@ -33,7 +32,6 @@ workflow mutect2 {
     intervalsToParallelizeBy: "Comma separated list of intervals to split by (e.g. chr1,chr2,chr3+chr4)"
     pon: "panel of normal"
     ponIdx: "index of pon"
-    gatk: "gatk version to be used"
     reference: "the reference genome for input sample"
     outputFileNamePrefix: "prefix of output file"
   }
@@ -125,7 +123,7 @@ Map[String, GenomeResources] resources = {
         gnomad = resources [ reference ].gnomad,
         gnomadIdx = resources [ reference ].gnomadIdx,
         outputBasename = outputBasename,
-        modules = resources [ reference ].modules + ' ' + gatk,
+        modules = resources [ reference ].modules + " gatk/4.2.6.1",
         refFai = resources[reference].refFai,
         refFasta = resources[reference].refFasta,
         refDict = resources[reference].refDict,
@@ -142,14 +140,14 @@ Map[String, GenomeResources] resources = {
     input:
       vcfs = unfilteredVcfs,
       vcfIndices = unfilteredVcfIndices,
-      modules = resources [ reference ].modules + ' ' + gatk,
+      modules = resources [ reference ].modules + " gatk/4.2.6.1",
       refFasta = resources[reference].refFasta
   }
 
   call mergeStats {
     input:
       stats = unfilteredStats,
-      modules = resources [ reference ].modules + ' ' + gatk,
+      modules = resources [ reference ].modules + " gatk/4.2.6.1",
   }
 
   call filter {
@@ -158,7 +156,7 @@ Map[String, GenomeResources] resources = {
       unfilteredVcf = mergeVCFs.mergedVcf,
       unfilteredVcfIdx = mergeVCFs.mergedVcfIdx,
       mutectStats = mergeStats.mergedStats,
-      modules = resources [ reference ].modules + ' ' + gatk,
+      modules = resources [ reference ].modules + " gatk/4.2.6.1",
       refFasta = resources[reference].refFasta,
       refDict = resources[reference].refDict,
       refFai = resources[reference].refFai
