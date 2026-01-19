@@ -62,8 +62,8 @@ workflow mutect2 {
         description: "Stats for filtering process",
         vidarr_label: "filteringStats"
     }
-}
   }
+}
 
 Map[String, GenomeResources] resources = {
   "hg19": {
@@ -162,12 +162,17 @@ Map[String, GenomeResources] resources = {
       refFai = resources[reference].refFai
   }
 
+  call mutect2Metrics {
+    input:
+      filteredVcf = filter.filteredVcfGz,
+  }
 
   output {
     File filteredVcfFile = filter.filteredVcfGz
     File filteredVcfIndex = filter.filteredVcfTbi
     File mergedUnfilteredStats = mergeStats.mergedStats
     File filteringStats = filter.filteringStats
+    File metricsFile = mutect2Metrics.metricsFile
   }
 }
 
@@ -494,5 +499,142 @@ task filter {
     File filteredVcfGz = "~{filteredVcfName}.gz"
     File filteredVcfTbi = "~{filteredVcfName}.gz.tbi"
     File filteringStats = "~{filteredVcfName}.stats"
+  }
+}
+
+task mutect2Metrics {
+  input {
+    File filteredVcf
+    String modules = "python/3.10.6 pandas/2.1.3"
+    Int memory = 4
+    Int timeout = 2
+  }
+
+  parameter_meta {
+    memory: "Memory allocated for job"
+    timeout: "Hours before task timeout"
+    modules: "Names and versions of modules"
+    filteredVcf: ".vcf.gz file from the filter task"
+  }
+
+  String filteredVcfBase = basename(filteredVcf, ".vcf.gz")
+  String metricsTsvName = filteredVcfBase + ".metrics.tsv"
+
+  command <<<
+  set -euo pipefail
+
+  python3 - <<CODE
+  import pandas as pd
+  import numpy as np
+  import sys
+
+  NUM_DP = 2
+  FILTER = 6
+  REF = 3
+  ALT = 4
+
+  vcf_file = "~{filteredVcf}"
+  out_tsv = "~{metricsTsvName}"
+
+  results = {
+      "num_calls": 0,
+      "num_PASS": 0,
+      "num_SNPs": 0,
+      "num_multi_SNPs": 0,
+      "num_indels": 0,
+      "titv_ratio": np.nan,
+      "num_MNPs": 0,
+      "pct_ti": 0,
+      "pct_tv": 0,
+  }
+
+  total_ti = 0
+  total_tv = 0
+  chunksize = 5 * 10**4
+
+  try:
+    df_iter = pd.read_csv(
+      vcf_file,
+      sep="\t",
+      comment="#",
+      header=None,
+      compression="gzip",
+      chunksize=chunksize,
+    )
+  except pd.errors.EmptyDataError:
+    pd.DataFrame(results, index=[0]).to_csv(out_tsv, sep="\t", index=False)
+    sys.exit(0)
+
+  for sub_df in df_iter:
+    results["num_calls"] += len(sub_df)
+
+    pass_df = sub_df[sub_df[FILTER] == "PASS"]
+    results["num_PASS"] += len(pass_df)
+
+    if len(pass_df) == 0:
+        continue
+
+    snps = pass_df[
+        (pass_df[REF].str.len() == 1) &
+        (pass_df[ALT].str.len() == 1)
+    ]
+    results["num_SNPs"] += len(snps)
+
+    results["num_multi_SNPs"] += len(
+        pass_df[
+            (pass_df[REF].str.len() == 1) &
+            (pass_df[ALT].str.contains(","))
+        ]
+    )
+
+    results["num_MNPs"] += len(
+        pass_df[
+            (pass_df[REF].str.len() > 1) &
+            (pass_df[REF].str.len() == pass_df[ALT].str.len())
+        ]
+    )
+
+    total_ti += len(
+        snps[(snps[REF] + snps[ALT]).isin(["AG", "GA", "CT", "TC"])]
+    )
+    total_tv += len(
+        snps[(snps[REF] + snps[ALT]).isin(
+            ["AC", "AT", "CA", "CG", "GT", "GC", "TA", "TG"]
+        )]
+    )
+
+  results["num_indels"] = (
+    results["num_PASS"]
+    - results["num_SNPs"]
+    - results["num_multi_SNPs"]
+    - results["num_MNPs"]
+  )
+
+  if results["num_PASS"] > 0:
+    results["pct_ti"] = round(total_ti / results["num_PASS"], NUM_DP)
+    results["pct_tv"] = round(total_tv / results["num_PASS"], NUM_DP)
+
+  results["titv_ratio"] = (
+    np.nan if total_tv == 0 else round(total_ti / total_tv, NUM_DP)
+  )
+
+  pd.DataFrame(results, index=[0]).to_csv(out_tsv, sep="\t", index=False)
+  CODE
+  >>>
+
+  runtime {
+    memory:  "~{memory} GB"
+    modules: "~{modules}"
+    timeout: "~{timeout}"
+  }
+
+  output {
+    File metricsFile = "~{metricsTsvName}"
+  }
+
+  meta {
+    output_meta: {
+      metricsFile: "Summary metrics derived from the filtered Mutect2 VCF."
+    }
   }
 }

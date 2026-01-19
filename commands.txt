@@ -111,3 +111,106 @@ are variant calls, provisioned as a .vcf file.
     gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
     gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
 ```
+
+### Pull metrics from filtered vcf files 
+```
+set -euo pipefail
+
+  python3 - <<CODE
+  import pandas as pd
+  import numpy as np
+  import sys
+
+  NUM_DP = 2
+  FILTER = 6
+  REF = 3
+  ALT = 4
+
+  vcf_file = "~{filteredVcf}"
+  out_tsv = "~{metricsTsvName}"
+
+  results = {
+      "num_calls": 0,
+      "num_PASS": 0,
+      "num_SNPs": 0,
+      "num_multi_SNPs": 0,
+      "num_indels": 0,
+      "titv_ratio": np.nan,
+      "num_MNPs": 0,
+      "pct_ti": 0,
+      "pct_tv": 0,
+  }
+
+  total_ti = 0
+  total_tv = 0
+  chunksize = 5 * 10**4
+
+  try:
+    df_iter = pd.read_csv(
+      vcf_file,
+      sep="\t",
+      comment="#",
+      header=None,
+      compression="gzip",
+      chunksize=chunksize,
+    )
+  except pd.errors.EmptyDataError:
+    pd.DataFrame(results, index=[0]).to_csv(out_tsv, sep="\t", index=False)
+    sys.exit(0)
+
+  for sub_df in df_iter:
+    results["num_calls"] += len(sub_df)
+
+    pass_df = sub_df[sub_df[FILTER] == "PASS"]
+    results["num_PASS"] += len(pass_df)
+
+    if len(pass_df) == 0:
+        continue
+
+    snps = pass_df[
+        (pass_df[REF].str.len() == 1) &
+        (pass_df[ALT].str.len() == 1)
+    ]
+    results["num_SNPs"] += len(snps)
+
+    results["num_multi_SNPs"] += len(
+        pass_df[
+            (pass_df[REF].str.len() == 1) &
+            (pass_df[ALT].str.contains(","))
+        ]
+    )
+
+    results["num_MNPs"] += len(
+        pass_df[
+            (pass_df[REF].str.len() > 1) &
+            (pass_df[REF].str.len() == pass_df[ALT].str.len())
+        ]
+    )
+
+    total_ti += len(
+        snps[(snps[REF] + snps[ALT]).isin(["AG", "GA", "CT", "TC"])]
+    )
+    total_tv += len(
+        snps[(snps[REF] + snps[ALT]).isin(
+            ["AC", "AT", "CA", "CG", "GT", "GC", "TA", "TG"]
+        )]
+    )
+
+  results["num_indels"] = (
+    results["num_PASS"]
+    - results["num_SNPs"]
+    - results["num_multi_SNPs"]
+    - results["num_MNPs"]
+  )
+
+  if results["num_PASS"] > 0:
+    results["pct_ti"] = round(total_ti / results["num_PASS"], NUM_DP)
+    results["pct_tv"] = round(total_tv / results["num_PASS"], NUM_DP)
+
+  results["titv_ratio"] = (
+    np.nan if total_tv == 0 else round(total_ti / total_tv, NUM_DP)
+  )
+
+  pd.DataFrame(results, index=[0]).to_csv(out_tsv, sep="\t", index=False)
+  CODE
+```
