@@ -61,7 +61,7 @@ workflow mutect2 {
     filteringStats: {
         description: "Stats for filtering process",
         vidarr_label: "filteringStats"
-    }
+    },
     metricsFile: {
         description: "Summary metrics from filtered vcf file",
         vidarr_label: "metricsFile"
