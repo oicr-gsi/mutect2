@@ -271,6 +271,7 @@ task runMutect2 {
     String outputBasename
     Int threads = 4
     Int memory = 32
+    Int overhead = 8
     Int minMemory = 6
     Int timeout = 24
     Float scaleCoefficient = 1.0
@@ -297,6 +298,7 @@ task runMutect2 {
     mutect2ExtraArgs: "placehoulder for extra arguments"
     threads: "Requested CPU threads"
     memory: "Memory allocated to job (in GB)."
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
     minMemory: "A minimum amount of memory allocated to the task, overrides the scaled RAM setting"
     timeout: "Maximum amount of time (in hours) the task can run for."
     scaleCoefficient: "Scaling coefficient for RAM allocation, depends on chromosome size"
@@ -341,7 +343,7 @@ task runMutect2 {
       germline_resource_line=""
     fi
 
-    gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
+    gatk --java-options "-Xmx~{memory - overhead}g" Mutect2 \
     -R ~{refFasta} \
     $tumor_command_line \
     $normal_command_line \
@@ -373,6 +375,7 @@ task mergeVCFs {
     Array[File] vcfs
     Array[File] vcfIndices
     Int memory = 4
+    Int overhead = 3
     Int timeout = 12
   }
 
@@ -381,6 +384,7 @@ task mergeVCFs {
     vcfs: "Vcf's from scatter to merge together"
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
   }
 
   meta {
@@ -395,7 +399,7 @@ task mergeVCFs {
   command <<<
     set -euo pipefail
 
-    gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
+    gatk --java-options "-Xmx~{memory - overhead}g" MergeVcfs \
     -I ~{sep=" -I " vcfs} \
     -O ~{outputName}
   >>>
@@ -417,12 +421,14 @@ task mergeStats {
     String modules
     Array[File]+ stats
     Int memory = 4
+    Int overhead = 3
     Int timeout = 5
   }
 
   parameter_meta {
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
   }
 
   String outputStats = basename(stats[0])
@@ -430,7 +436,7 @@ task mergeStats {
   command <<<
     set -euo pipefail
 
-    gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
+    gatk --java-options "-Xmx~{memory - overhead}g" MergeMutectStats \
     -stats ~{sep=" -stats " stats} \
     -O ~{outputStats}
   >>>
@@ -458,6 +464,7 @@ task filter {
     File mutectStats
     String? filterExtraArgs
     Int memory = 16
+    Int overhead = 5
     Int timeout = 12
   }
 
@@ -465,6 +472,7 @@ task filter {
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
     filterExtraArgs: "placehoulder for extra arguments"
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
   }
 
   String unfilteredVcfName = basename(unfilteredVcf)
@@ -476,7 +484,7 @@ task filter {
     cp ~{refFai} .
     cp ~{refDict} .
 
-    gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
+    gatk --java-options "-Xmx~{memory - overhead}g" FilterMutectCalls \
     -V ~{unfilteredVcf} \
     -R ~{refFasta} \
     -O ~{filteredVcfName} \
@@ -487,8 +495,8 @@ task filter {
     bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
     bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
 
-    gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
-    gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
+    gatk --java-options "-Xmx~{memory - overhead}g" IndexFeatureFile -I ~{filteredVcfName}.gz
+    gatk --java-options "-Xmx~{memory - overhead}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
   >>>
 
   runtime {

@@ -136,7 +136,7 @@ Output | Type | Description | Labels
        germline_resource_line=""
      fi
  
-     gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
+     gatk --java-options "-Xmx~{memory - overhead}g" Mutect2 \
      -R ~{refFasta} \
      $tumor_command_line \
      $normal_command_line \
@@ -152,7 +152,7 @@ Output | Type | Description | Labels
  ```
      set -euo pipefail
  
-     gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
+     gatk --java-options "-Xmx~{memory - overhead}g" MergeVcfs \
      -I ~{sep=" -I " vcfs} \
      -O ~{outputName}
  ```
@@ -162,7 +162,7 @@ Output | Type | Description | Labels
  ```
      set -euo pipefail
  
-     gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
+     gatk --java-options "-Xmx~{memory - overhead}g" MergeMutectStats \
      -stats ~{sep=" -stats " stats} \
      -O ~{outputStats}
  ```
@@ -175,7 +175,7 @@ Output | Type | Description | Labels
      cp ~{refFai} .
      cp ~{refDict} .
  
-     gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
+     gatk --java-options "-Xmx~{memory - overhead}g" FilterMutectCalls \
      -V ~{unfilteredVcf} \
      -R ~{refFasta} \
      -O ~{filteredVcfName} \
@@ -186,8 +186,8 @@ Output | Type | Description | Labels
      bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
      bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
  
-     gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
-     gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
+     gatk --java-options "-Xmx~{memory - overhead}g" IndexFeatureFile -I ~{filteredVcfName}.gz
+     gatk --java-options "-Xmx~{memory - overhead}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
  ```
  
  ### Pull metrics from filtered vcf files 
