@@ -3,13 +3,17 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.outputFileNamePrefix": "ESBCC_0005_Tumor_Matched_Normal_EX",
+            "mutect2.outputFileNamePrefix": "ESBCC_Test_Tumor_Matched_Normal_EX",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -17,9 +21,11 @@
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/Test_Covered.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -50,6 +56,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -93,7 +100,7 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "ESBCC_0005_Tumor_Matched_Normal_EX",
+        "id": "ESBCC_Test_Tumor_Matched_Normal_EX",
         "metadata": {
             "mutect2.filteredVcfFile": {
                 "contents": [
@@ -142,13 +149,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_ESBCC_Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/ESBCC_0005_Tumor_Matched_Normal_EX.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/ESBCC_Test_Tumor_Matched_Normal_EX.metrics",
                 "type": "script"
             }
         ]
@@ -157,13 +172,17 @@
         "arguments": {
             "mutect2.filter.filterExtraArgs": null,
             "mutect2.reference": "hg19",
-            "mutect2.outputFileNamePrefix": "TGL20_0151_Tumor_Only_EX",
+            "mutect2.outputFileNamePrefix": "TGL20_Test_Tumor_Only_EX",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -171,9 +190,11 @@
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/Test_Regions_sorted.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -182,6 +203,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -225,7 +247,7 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "TGL20_0151_Tumor_Only_EX",
+        "id": "TGL20_Test_Tumor_Only_EX",
         "metadata": {
             "mutect2.filteredVcfFile": {
                 "contents": [
@@ -274,13 +296,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_TGL20_Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/TGL20_0151_Tumor_Only_EX.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/TGL20_Test_Tumor_Only_EX.metrics",
                 "type": "script"
             }
         ]
@@ -291,11 +321,15 @@
             "mutect2.reference": "hg19",
             "mutect2.outputFileNamePrefix": "Tumor_only_no_interval_file",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -303,9 +337,11 @@
             "mutect2.intervalFile": null,
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -314,6 +350,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -406,13 +443,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_Tumor_only_no_interval_file_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_only_no_interval_file.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/Tumor_only_no_interval_file.metrics",
                 "type": "script"
             }
         ]
@@ -423,11 +468,15 @@
             "mutect2.reference": "hg19",
             "mutect2.outputFileNamePrefix": "Tumor_only",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -435,9 +484,11 @@
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test.val.bed",
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -446,6 +497,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -538,13 +590,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_Tumor_only_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_only.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/Tumor_only.metrics",
                 "type": "script"
             }
         ]
@@ -555,11 +615,15 @@
             "mutect2.reference": "hg19",
             "mutect2.outputFileNamePrefix": "Tumor_only_no_parallel_intervalFile",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -567,9 +631,11 @@
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test.val.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -578,6 +644,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -670,13 +737,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_Tumor_only_no_parallel_intervalFile_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_only_no_parallel_intervalFile.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/Tumor_only_no_parallel_intervalFile.metrics",
                 "type": "script"
             }
         ]
@@ -687,11 +762,15 @@
             "mutect2.reference": "hg19",
             "mutect2.outputFileNamePrefix": "Tumor_normal",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -699,9 +778,11 @@
             "mutect2.intervalFile": null,
             "mutect2.intervalsToParallelizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr9,chr10,chr11,chr12,chr14,chr16,chr17,chr18,chr19,chrX",
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -732,6 +813,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -824,13 +906,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_Tumor_normal_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_normal.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/Tumor_normal.metrics",
                 "type": "script"
             }
         ]
@@ -841,11 +931,15 @@
             "mutect2.reference": "hg19",
             "mutect2.outputFileNamePrefix": "Tumor_normal_no_parallel_intervalFile",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.gnomad": null,
@@ -853,9 +947,11 @@
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/PCSI_Test.val.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
@@ -886,6 +982,7 @@
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -978,13 +1075,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_Tumor_normal_no_parallel_intervalFile_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/Tumor_normal_no_parallel_intervalFile.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/Tumor_normal_no_parallel_intervalFile.metrics",
                 "type": "script"
             }
         ]
@@ -995,25 +1100,32 @@
             "mutect2.reference": "hg38",
             "mutect2.outputFileNamePrefix": "MATS_0009_Ly_P_WG",
             "mutect2.filter.memory": null,
+            "mutect2.filter.overhead": null,
             "mutect2.filter.modules": null,
             "mutect2.filter.refDict": null,
             "mutect2.filter.refFai": null,
             "mutect2.filter.refFasta": null,
             "mutect2.filter.timeout": null,
+            "mutect2.mutect2Metrics.memory": null, 
+            "mutect2.mutect2Metrics.timeout": null, 
+            "mutect2.mutect2Metrics.modules": null,
             "mutect2.getChrCoefficient.timeout": null,
             "mutect2.getChrCoefficient.memory": null,
             "mutect2.intervalFile": "/.mounts/labs/gsi/testdata/mutect2/test_inputs/ALL.AS,CH,CM,NN,SW,WG.hg38.bed",
             "mutect2.intervalsToParallelizeBy": null,
             "mutect2.mergeStats.memory": null,
+            "mutect2.mergeStats.overhead": null,
             "mutect2.mergeStats.modules": null,
             "mutect2.mergeStats.timeout": null,
             "mutect2.mergeVCFs.memory": null,
+            "mutect2.mergeVCFs.overhead": null,
             "mutect2.mergeVCFs.modules": null,
             "mutect2.mergeVCFs.refFasta": null,
             "mutect2.mergeVCFs.timeout": null,
             "mutect2.pon": null,
             "mutect2.ponIdx": null,
             "mutect2.runMutect2.memory": null,
+            "mutect2.runMutect2.overhead": null,
             "mutect2.runMutect2.minMemory": null,
             "mutect2.runMutect2.modules": null,
             "mutect2.runMutect2.mutect2ExtraArgs": null,
@@ -1108,13 +1220,21 @@
                     }
                 ],
                 "type": "ALL"
+            },
+            "mutect2.metricsFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2_hg38_with_gnomad_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
             }
         },
         "validators": [
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.1.1/hg38_with_gnomad.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/mutect2/output_metrics/1.2.0/hg38_with_gnomad.metrics",
                 "type": "script"
             }
         ]

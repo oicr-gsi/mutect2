@@ -61,9 +61,13 @@ workflow mutect2 {
     filteringStats: {
         description: "Stats for filtering process",
         vidarr_label: "filteringStats"
+    },
+    metricsFile: {
+        description: "Summary metrics from filtered vcf file",
+        vidarr_label: "metricsFile"
     }
-}
   }
+}
 
 Map[String, GenomeResources] resources = {
   "hg19": {
@@ -162,12 +166,17 @@ Map[String, GenomeResources] resources = {
       refFai = resources[reference].refFai
   }
 
+  call mutect2Metrics {
+    input:
+      filteredVcf = filter.filteredVcfGz,
+  }
 
   output {
     File filteredVcfFile = filter.filteredVcfGz
     File filteredVcfIndex = filter.filteredVcfTbi
     File mergedUnfilteredStats = mergeStats.mergedStats
     File filteringStats = filter.filteringStats
+    File metricsFile = mutect2Metrics.metricsFile
   }
 }
 
@@ -262,6 +271,7 @@ task runMutect2 {
     String outputBasename
     Int threads = 4
     Int memory = 32
+    Int overhead = 8
     Int minMemory = 6
     Int timeout = 24
     Float scaleCoefficient = 1.0
@@ -288,6 +298,7 @@ task runMutect2 {
     mutect2ExtraArgs: "placehoulder for extra arguments"
     threads: "Requested CPU threads"
     memory: "Memory allocated to job (in GB)."
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
     minMemory: "A minimum amount of memory allocated to the task, overrides the scaled RAM setting"
     timeout: "Maximum amount of time (in hours) the task can run for."
     scaleCoefficient: "Scaling coefficient for RAM allocation, depends on chromosome size"
@@ -332,7 +343,7 @@ task runMutect2 {
       germline_resource_line=""
     fi
 
-    gatk --java-options "-Xmx~{memory-8}g" Mutect2 \
+    gatk --java-options "-Xmx~{memory - overhead}g" Mutect2 \
     -R ~{refFasta} \
     $tumor_command_line \
     $normal_command_line \
@@ -364,6 +375,7 @@ task mergeVCFs {
     Array[File] vcfs
     Array[File] vcfIndices
     Int memory = 4
+    Int overhead = 3
     Int timeout = 12
   }
 
@@ -372,6 +384,7 @@ task mergeVCFs {
     vcfs: "Vcf's from scatter to merge together"
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
   }
 
   meta {
@@ -386,7 +399,7 @@ task mergeVCFs {
   command <<<
     set -euo pipefail
 
-    gatk --java-options "-Xmx~{memory-3}g" MergeVcfs \
+    gatk --java-options "-Xmx~{memory - overhead}g" MergeVcfs \
     -I ~{sep=" -I " vcfs} \
     -O ~{outputName}
   >>>
@@ -408,12 +421,14 @@ task mergeStats {
     String modules
     Array[File]+ stats
     Int memory = 4
+    Int overhead = 3
     Int timeout = 5
   }
 
   parameter_meta {
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
   }
 
   String outputStats = basename(stats[0])
@@ -421,7 +436,7 @@ task mergeStats {
   command <<<
     set -euo pipefail
 
-    gatk --java-options "-Xmx~{memory-3}g" MergeMutectStats \
+    gatk --java-options "-Xmx~{memory - overhead}g" MergeMutectStats \
     -stats ~{sep=" -stats " stats} \
     -O ~{outputStats}
   >>>
@@ -449,6 +464,7 @@ task filter {
     File mutectStats
     String? filterExtraArgs
     Int memory = 16
+    Int overhead = 5
     Int timeout = 12
   }
 
@@ -456,6 +472,7 @@ task filter {
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
     filterExtraArgs: "placehoulder for extra arguments"
+    overhead: "Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory."
   }
 
   String unfilteredVcfName = basename(unfilteredVcf)
@@ -467,7 +484,7 @@ task filter {
     cp ~{refFai} .
     cp ~{refDict} .
 
-    gatk --java-options "-Xmx~{memory-4}g" FilterMutectCalls \
+    gatk --java-options "-Xmx~{memory - overhead}g" FilterMutectCalls \
     -V ~{unfilteredVcf} \
     -R ~{refFasta} \
     -O ~{filteredVcfName} \
@@ -478,8 +495,8 @@ task filter {
     bgzip -c ~{filteredVcfName} > ~{filteredVcfName}.gz
     bgzip -c ~{unfilteredVcf} > ~{unfilteredVcfName}.gz
 
-    gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{filteredVcfName}.gz
-    gatk --java-options "-Xmx~{memory-5}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
+    gatk --java-options "-Xmx~{memory - overhead}g" IndexFeatureFile -I ~{filteredVcfName}.gz
+    gatk --java-options "-Xmx~{memory - overhead}g" IndexFeatureFile -I ~{unfilteredVcfName}.gz
   >>>
 
   runtime {
@@ -494,5 +511,136 @@ task filter {
     File filteredVcfGz = "~{filteredVcfName}.gz"
     File filteredVcfTbi = "~{filteredVcfName}.gz.tbi"
     File filteringStats = "~{filteredVcfName}.stats"
+  }
+}
+
+task mutect2Metrics {
+  input {
+    File filteredVcf
+    String modules = "python/3.10.6 pandas/2.1.3"
+    Int memory = 4
+    Int timeout = 2
+  }
+
+  parameter_meta {
+    memory: "Memory allocated for job"
+    timeout: "Hours before task timeout"
+    modules: "Names and versions of modules"
+    filteredVcf: ".vcf.gz file from the filter task"
+  }
+
+  String filteredVcfBase = basename(filteredVcf, ".vcf.gz")
+  String metricsTsvName = filteredVcfBase + ".metrics.tsv"
+
+  command <<<
+  set -euo pipefail
+
+  python3 - <<CODE
+  import pandas as pd
+  import numpy as np
+  import sys
+
+  NUM_DP = 2
+  FILTER = 6
+  REF = 3
+  ALT = 4
+
+  vcf_file = "~{filteredVcf}"
+  out_tsv = "~{metricsTsvName}"
+
+  results = {
+      "num_calls": 0,
+      "num_PASS": 0,
+      "num_SNPs": 0,
+      "num_multi_SNPs": 0,
+      "num_indels": 0,
+      "titv_ratio": np.nan,
+      "num_MNPs": 0,
+      "pct_ti": 0,
+      "pct_tv": 0,
+  }
+
+  total_ti = 0
+  total_tv = 0
+  chunksize = 5 * 10**4
+
+  try:
+    df_iter = pd.read_csv(
+      vcf_file,
+      sep="\t",
+      comment="#",
+      header=None,
+      compression="gzip",
+      chunksize=chunksize,
+    )
+  except pd.errors.EmptyDataError:
+    pd.DataFrame(results, index=[0]).to_csv(out_tsv, sep="\t", index=False)
+    sys.exit(0)
+
+  for sub_df in df_iter:
+    results["num_calls"] += len(sub_df)
+
+    pass_df = sub_df[sub_df[FILTER] == "PASS"]
+    results["num_PASS"] += len(pass_df)
+
+    if len(pass_df) == 0:
+        continue
+
+    snps = pass_df[
+        (pass_df[REF].str.len() == 1) &
+        (pass_df[ALT].str.len() == 1)
+    ]
+    results["num_SNPs"] += len(snps)
+
+    results["num_multi_SNPs"] += len(
+        pass_df[
+            (pass_df[REF].str.len() == 1) &
+            (pass_df[ALT].str.contains(","))
+        ]
+    )
+
+    results["num_MNPs"] += len(
+        pass_df[
+            (pass_df[REF].str.len() > 1) &
+            (pass_df[REF].str.len() == pass_df[ALT].str.len())
+        ]
+    )
+
+    total_ti += len(
+        snps[(snps[REF] + snps[ALT]).isin(["AG", "GA", "CT", "TC"])]
+    )
+    total_tv += len(
+        snps[(snps[REF] + snps[ALT]).isin(
+            ["AC", "AT", "CA", "CG", "GT", "GC", "TA", "TG"]
+        )]
+    )
+
+  results["num_indels"] = (
+    results["num_PASS"]
+    - results["num_SNPs"]
+    - results["num_multi_SNPs"]
+    - results["num_MNPs"]
+  )
+
+  if results["num_PASS"] > 0:
+    results["pct_ti"] = round(total_ti / results["num_PASS"], NUM_DP)
+    results["pct_tv"] = round(total_tv / results["num_PASS"], NUM_DP)
+
+  results["titv_ratio"] = (
+    np.nan if total_tv == 0 else round(total_ti / total_tv, NUM_DP)
+  )
+
+  pd.DataFrame(results, index=[0]).to_csv(out_tsv, sep="\t", index=False)
+  CODE
+  >>>
+
+  runtime {
+    memory:  "~{memory} GB"
+    modules: "~{modules}"
+    timeout: "~{timeout}"
+  }
+
+  output {
+    File metricsFile = "~{metricsTsvName}"
   }
 }
