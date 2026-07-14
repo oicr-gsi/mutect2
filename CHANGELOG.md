@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.4] - 2025-12-15
+## [1.2.1] - 2026-07-14
 - Added new reference options, noAlt and ncbi
+
+## [1.2.0] - 2026-01-23
+- [GRD-1011](https://jira.oicr.on.ca/browse/GRD-1011) - Added new wdl task to calculate cache metrics in the workflow.
 
 ## [1.1.3] - 2025-11-28
 - identical to 1.1.1, somehow 1.1.1 has already been built without any record or being visible in jenkins.
