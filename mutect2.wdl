@@ -72,19 +72,19 @@ workflow mutect2 {
 Map[String, GenomeResources] resources = {
   "hg19": {
         "refDict" : "$HG19_ROOT/hg19_random.dict",
-    		"refFai" : "$HG19_ROOT/hg19_random.fa.fai",
-    		"refFasta" : "$HG19_ROOT/hg19_random.fa",
-    		"modules" : "hg19/p13 samtools/1.9",
+        "refFai" : "$HG19_ROOT/hg19_random.fa.fai",
+        "refFasta" : "$HG19_ROOT/hg19_random.fa",
+        "modules" : "hg19/p13 samtools/1.9",
         "gnomad": "",
         "gnomadIdx": ""
   },
   "hg38": {
         "refDict" : "$HG38_ROOT/hg38_random.dict",
-    		"refFai" : "$HG38_ROOT/hg38_random.fa.fai",
-    		"refFasta" : "$HG38_ROOT/hg38_random.fa",
+        "refFai" : "$HG38_ROOT/hg38_random.fa.fai",
+        "refFasta" : "$HG38_ROOT/hg38_random.fa",
         "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
         "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
-    		"modules" : "hg38/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
+        "modules" : "hg38/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
   },
   "mm10": {
         "refDict" : "$MM10_ROOT/mm10.dict",
@@ -93,6 +93,22 @@ Map[String, GenomeResources] resources = {
         "modules" : "mm10/p6 samtools/1.9",
         "gnomad": "",
         "gnomadIdx": ""
+  },
+  "hg38_noAlt": {
+        "refDict" : "$HG38_NOALT_ROOT/hg38_noAlt.dict",
+        "refFai" : "$HG38_NOALT_ROOT/hg38_noAlt.fa.fai",
+        "refFasta" : "$HG38_NOALT_ROOT/hg38_noAlt.fa",
+        "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
+        "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
+        "modules" : "hg38-noalt/p12 samtools/1.9 hg38-gatk-gnomad/2.0"
+  },
+  "grch38": {
+        "refDict" : "$GRCH38_ROOT/grch38_noAlt.dict",
+        "refFai" : "$GRCH38_ROOT/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai",
+        "refFasta" : "$GRCH38_ROOT/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna",
+        "gnomad": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz",
+        "gnomadIdx": "$HG38_GATK_GNOMAD_ROOT/af-only-gnomad.hg38.vcf.gz.tbi",
+        "modules" : "grch38/p15 samtools/1.9 hg38-gatk-gnomad/2.0"
   }
 
 }
